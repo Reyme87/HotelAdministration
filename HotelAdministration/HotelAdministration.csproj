@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\astoriaHotel.jpg" />
+    <None Remove="Resources\backArrow.png" />
+    <None Remove="Resources\background.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Base\" />
+    <Folder Include="ViewModels\Base\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\astoriaHotel.jpg" />
+    <Resource Include="Resources\backArrow.png" />
+    <Resource Include="Resources\background.png" />
+  </ItemGroup>
+
+</Project>

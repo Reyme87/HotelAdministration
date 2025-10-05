@@ -1,0 +1,101 @@
+﻿<Page x:Class="HotelAdministration.Views.RegPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HotelAdministration.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600" FontFamily="{StaticResource MainFont}"
+      Title="RegPage">
+
+    <Grid Background="{StaticResource BackColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="0.12*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" 
+            Content="{StaticResource BackArrow}" FontWeight="Bold" x:Name="NavigationButton" Click="NavigationButton_Click"/>
+
+        <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="3" Source="{StaticResource BackgroundImage}" Stretch="Fill" />
+        
+        <!--<Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Fill="{StaticResource ControlsColor}" />-->
+
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" 
+           Content="Регистрация" Foreground="{StaticResource BackColor}" FontSize="32" FontWeight="Bold"
+           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <Label Content="ФИО" 
+                   Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+                   Margin="130 5 130 3"/>
+
+            <TextBox Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
+            
+            <Label Content="Телефон" 
+                   Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+                   Margin="130 3"/>
+
+            <TextBox Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
+            
+            <Label Content="e-mail" 
+                   Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+                   Margin="130 3"/>
+
+            <TextBox Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
+
+            <Label Content="Логин" 
+                   Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+                   VerticalAlignment="Bottom" Margin="130 3"/>
+
+            <TextBox Height="35" Width="350" VerticalAlignment="Bottom" FontSize="24" BorderThickness="2"/>
+
+            <Label Content="Пароль" 
+                   Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+                   VerticalAlignment="Bottom" Margin="130 3"/>
+
+            
+            <TextBox Height="35" Width="350" VerticalAlignment="Bottom" FontSize="24" BorderThickness="2"/>
+        </StackPanel>
+        
+        <!--<Label Grid.Row="2" Grid.Column="0" Content="ФИО" 
+           Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+           VerticalAlignment="Top" Margin="15 25"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Телефон" 
+               Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+               VerticalAlignment="Top" Margin="15 70"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="e-mail" 
+               Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+               VerticalAlignment="Top" Margin="15 115"/>
+
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Top" Margin="15 20" FontSize="24" BorderThickness="2"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Top" Margin="15 65" FontSize="24" BorderThickness="2"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Top" Margin="15 111" FontSize="24" BorderThickness="2"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Логин" 
+                Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+                VerticalAlignment="Bottom" Margin="15 70"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Пароль" 
+       Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
+       VerticalAlignment="Bottom" Margin="15 25"/>
+
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Bottom" Margin="15 65" FontSize="24" BorderThickness="2"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Bottom" Margin="15 20" FontSize="24" BorderThickness="2"/>-->
+
+        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Content="Зарегистрироваться"  FontSize="20" FontWeight="Bold"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20" x:Name="RegButton"/>
+
+    </Grid>
+</Page>
