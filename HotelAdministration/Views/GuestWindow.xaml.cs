@@ -23,5 +23,13 @@ namespace HotelAdministration.Views
         {
             InitializeComponent();
         }
+
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = mw;
+        }
     }
 }
