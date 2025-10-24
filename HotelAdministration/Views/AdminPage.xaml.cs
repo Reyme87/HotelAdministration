@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HotelAdministration.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AdminWindow.xaml
+    /// Логика взаимодействия для AdminPage.xaml
     /// </summary>
-    public partial class AdminWindow : Window
+    public partial class AdminPage : Page
     {
-        public AdminWindow()
+        public AdminPage()
         {
             InitializeComponent();
-            AdminFrame.Content = new AdminPage();
         }
     }
 }
