@@ -80,7 +80,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel>
@@ -97,6 +97,10 @@
                         </StackPanel>
                     </Border>
 
+                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
+                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
+                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                    </DockPanel>
                 </Grid>
             </TabItem>
 
@@ -114,7 +118,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel>
@@ -154,6 +158,11 @@
                             </DockPanel>
                         </StackPanel>
                     </Border>
+
+                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
+                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
+                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                    </DockPanel>
                 </Grid>
             </TabItem>
 
@@ -171,7 +180,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel>
@@ -204,6 +213,10 @@
 
                         </StackPanel>
                     </Border>
+                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
+                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
+                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                    </DockPanel>
                 </Grid>
             </TabItem>
 
@@ -221,7 +234,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel>
@@ -265,6 +278,11 @@
                             </DockPanel>
                         </StackPanel>
                     </Border>
+
+                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
+                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
+                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                    </DockPanel>
                 </Grid>
             </TabItem>
         </TabControl>
