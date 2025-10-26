@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="NameAndType">
+  <Class Name="HotelAdministration.ViewModels.Base.ViewModel">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Base\ViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HotelAdministration.ViewModels.GuestViewModel">
+    <Position X="4.75" Y="5" Width="3.5" />
+    <Members>
+      <Field Name="_checkInDate" Hidden="true" />
+      <Field Name="_checkOutDate" Hidden="true" />
+      <Field Name="_city" Hidden="true" />
+      <Field Name="_clients" Hidden="true" />
+      <Field Name="_context" Hidden="true" />
+      <Field Name="_currentDateTime" Hidden="true" />
+      <Field Name="_email" Hidden="true" />
+      <Field Name="_firstName" Hidden="true" />
+      <Field Name="_instance" Hidden="true" />
+      <Field Name="_iteration" Hidden="true" />
+      <Field Name="_lastName" Hidden="true" />
+      <Field Name="_middleName" Hidden="true" />
+      <Field Name="_phoneNumber" Hidden="true" />
+      <Field Name="_priceForOnePlace" Hidden="true" />
+      <Field Name="_rooms" Hidden="true" />
+      <Field Name="_selectedClient" Hidden="true" />
+      <Field Name="_selectedPreview" Hidden="true" />
+      <Field Name="_selectedRoomBooking" Hidden="true" />
+      <Field Name="_selectedRooms" Hidden="true" />
+      <Field Name="_today" Hidden="true" />
+      <Field Name="_visibility" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>QEEFIkDAQCIhlAHLcCUUQAALKAgAAoYAREBAMkICAmk=</HashCode>
+      <FileName>ViewModels\GuestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.ViewModels.ManageViewModel">
+    <Position X="0.5" Y="5" Width="3.75" />
+    <Members>
+      <Field Name="_capacity" Hidden="true" />
+      <Field Name="_clients" Hidden="true" />
+      <Field Name="_context" Hidden="true" />
+      <Field Name="_culture" Hidden="true" />
+      <Field Name="_currentDateTime" Hidden="true" />
+      <Field Name="_days" Hidden="true" />
+      <Field Name="_employees" Hidden="true" />
+      <Field Name="_employeesVisibilityParam" Hidden="true" />
+      <Field Name="_firstName" Hidden="true" />
+      <Field Name="_floorId" Hidden="true" />
+      <Field Name="_floorNumber" Hidden="true" />
+      <Field Name="_floors" Hidden="true" />
+      <Field Name="_infoFloorNumber" Hidden="true" />
+      <Field Name="_infoRoomNumber" Hidden="true" />
+      <Field Name="_instance" Hidden="true" />
+      <Field Name="_lastName" Hidden="true" />
+      <Field Name="_matchingClients" Hidden="true" />
+      <Field Name="_matchingEmployee" Hidden="true" />
+      <Field Name="_middleName" Hidden="true" />
+      <Field Name="_phoneNumber" Hidden="true" />
+      <Field Name="_price" Hidden="true" />
+      <Field Name="_priceForOnePlace" Hidden="true" />
+      <Field Name="_queryCity" Hidden="true" />
+      <Field Name="_queryClient" Hidden="true" />
+      <Field Name="_queryDay" Hidden="true" />
+      <Field Name="_queryRoomType" Hidden="true" />
+      <Field Name="_roomNumber" Hidden="true" />
+      <Field Name="_rooms" Hidden="true" />
+      <Field Name="_selectedClient" Hidden="true" />
+      <Field Name="_selectedEmployee" Hidden="true" />
+      <Field Name="_selectedFloor" Hidden="true" />
+      <Field Name="_selectedRoom" Hidden="true" />
+      <Field Name="_statuses" Hidden="true" />
+      <Field Name="_today" Hidden="true" />
+      <Field Name="_totalFreePlacesAmount" Hidden="true" />
+      <Field Name="_totalFreeRoomsAmount" Hidden="true" />
+      <Field Name="_totalPayedAmount" Hidden="true" />
+      <Field Name="_totalRooms" Hidden="true" />
+      <Field Name="_visibilityParam" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>GkH1AkxNOYIjZBuOAHWUZAQrqQDEIoDIyKYhIgG7gAw=</HashCode>
+      <FileName>ViewModels\ManageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.ViewModels.RegViewModel">
+    <Position X="8.5" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAACAADAAABAAAAAQAEAAAgACKACAQIAAQCBU=</HashCode>
+      <FileName>ViewModels\RegViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Commands.Base.Command">
+    <Position X="12.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\Base\Command.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="HotelAdministration.Commands.RelayCommand">
+    <Position X="12.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Models.Administrator">
+    <Position X="15" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAEAAACAAAAAAAAAQQAAAAAAAAAAAAAAQAAAAAAg=</HashCode>
+      <FileName>Models\Administrator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Models.QueryController">
+    <Position X="15" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAAABAAABAgAAAIAAAAAAAAAAIAAAAQ=</HashCode>
+      <FileName>Models\QueryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Models.RoomPreview">
+    <Position X="18.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAQAABAAAAAA=</HashCode>
+      <FileName>Models\RoomPreview.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Client">
+    <Position X="16.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAEAAACABAAAIgAAQQAAAAAAABAIAQAgAgAAACAg=</HashCode>
+      <FileName>Models\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Employee">
+    <Position X="18.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEAAAAAAAAAAAQQAAAAAAgAAAIBAAAAAACAAg=</HashCode>
+      <FileName>Models\Employee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Floor">
+    <Position X="15" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAACCAAAAAAAAAABAACAAAA=</HashCode>
+      <FileName>Models\Floor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.HotelContext">
+    <Position X="16.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAQAAgAACAAAAACGAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\HotelContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HotelAdministration.Room">
+    <Position X="16.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAACAAEAAIgAACAAIAACAAAEAAAAAAAAAICAAAA=</HashCode>
+      <FileName>Models\Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PasswordManager.Models.JsonController&lt;T&gt;">
+    <Position X="18.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\JsonController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

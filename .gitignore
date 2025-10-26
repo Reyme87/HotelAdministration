@@ -361,7 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+<<<<<<< HEAD
 
 /.sql
 /.db
 /.settings
+=======
+/HotelAdministration/Models/HotelContext.cs
+>>>>>>> Изменение .gitignore
