@@ -47,6 +47,6 @@
 
         <Button Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Content="Добавить" 
                 Width="160" VerticalAlignment="Bottom" Margin="0 25"/>
-        <Button Content="{StaticResource BackArrow}" Grid.ColumnSpan="2" Width="40" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top"/>
+        <Button x:Name="ReturnButton" Content="{StaticResource BackArrow}" Width="40" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Click="ReturnButton_Click"/>
     </Grid>
 </Page>

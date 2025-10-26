@@ -24,5 +24,10 @@ namespace HotelAdministration.Views
         {
             InitializeComponent();
         }
+
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }
