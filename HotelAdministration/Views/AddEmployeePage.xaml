@@ -4,9 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelAdministration.Views"
+      xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800" FontFamily="{StaticResource MainFont}"
       Title="AddEmployeePage">
+
+    <Page.DataContext>
+        <vm:ManageViewModel/>
+    </Page.DataContext>
 
     <Grid Background="{StaticResource ControlsColor}">
         <Grid.RowDefinitions>
@@ -36,16 +41,16 @@
         <Label Grid.Column="1" Grid.Row="4" Content="Телефон" FontSize="24" FontWeight="Bold"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
-     VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
-     VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" FontSize="22" 
-     VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" FontSize="22" 
-     VerticalAlignment="Center" Height="35" Margin="5"/>
+        <TextBox Text="{Binding LastName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
+                 VerticalAlignment="Center" Height="35" Margin="5"/>
+        <TextBox Text="{Binding FirstName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
+                 VerticalAlignment="Center" Height="35" Margin="5"/>
+        <TextBox Text="{Binding MiddleName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" FontSize="22" 
+                 VerticalAlignment="Center" Height="35" Margin="5"/>
+        <TextBox Text="{Binding PhoneNumber}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" FontSize="22" 
+                 VerticalAlignment="Center" Height="35" Margin="5"/>
 
-        <Button Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Content="Добавить" 
+        <Button Command="{Binding AddEmployeeCommand}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Content="Добавить" 
             Width="160" VerticalAlignment="Bottom" Margin="0 25"/>
         <Button x:Name="ReturnButton" Content="{StaticResource BackArrow}" Width="40" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Click="ReturnButton_Click"/>
     </Grid>
