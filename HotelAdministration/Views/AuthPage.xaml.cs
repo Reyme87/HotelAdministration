@@ -34,5 +34,13 @@ namespace HotelAdministration.Views
         {
             NavigationService.Navigate(new RegPage());
         }
+
+        //private void AuthButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AdminWindow aw = new AdminWindow();
+        //    aw.Show();
+        //    Application.Current.MainWindow.Close();
+        //    Application.Current.MainWindow = aw;
+        //}
     }
 }

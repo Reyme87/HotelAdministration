@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelAdministration.Views"
+      xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="600" FontFamily="{StaticResource MainFont}"
       Title="AuthPage">
 
+    <Page.DataContext>
+        <vm:RegViewModel/>
+    </Page.DataContext>
+        
     <Grid Background="{StaticResource BackColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -38,7 +43,7 @@
                 <Label Content="Логин/e-mail" 
                        Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                        VerticalAlignment="Top" Margin="130 10"/>
-                <TextBox Height="35" Width="350" 
+                <TextBox Text="{Binding AuthLogin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="35" Width="350" 
                          VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="24" BorderThickness="2"/>
             </StackPanel>
 
@@ -46,13 +51,13 @@
                 <Label Content="Пароль" 
                        Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                        VerticalAlignment="Bottom" Margin="130 10"/>
-                <TextBox Height="35" Width="350"  FontSize="24" BorderThickness="2"/>
+                <local:PasswordBoxControl Password="{Binding AuthPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="40" Width="350"  FontSize="24" BorderThickness="2"/>
                 
             </StackPanel>
         </StackPanel>
        
 
-        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Content="Войти"  FontSize="24" FontWeight="Bold"
+        <Button Command="{Binding AuthCommand}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Content="Войти"  FontSize="24" FontWeight="Bold"
         VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="25" x:Name="AuthButton"/>
         
         <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Или зарегистрируйте новый аккаунт" FontWeight="Bold"
