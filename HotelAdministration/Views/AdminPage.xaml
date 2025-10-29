@@ -98,8 +98,8 @@
                     </Border>
 
                     <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
-                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                        <Button x:Name="AddFloorButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddFloorButton_Click"/>
+                        <Button x:Name="DeleteFloorButton" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
@@ -160,7 +160,7 @@
                     </Border>
 
                     <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
+                        <Button x:Name="AddNumberButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddNumberButton_Click"/>
                         <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
                 </Grid>
@@ -214,7 +214,7 @@
                         </StackPanel>
                     </Border>
                     <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
+                        <Button x:Name="AddEmployeeButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddEmployeeButton_Click"/>
                         <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
                 </Grid>

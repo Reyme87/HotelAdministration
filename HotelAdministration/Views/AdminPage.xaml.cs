@@ -24,5 +24,20 @@ namespace HotelAdministration.Views
         {
             InitializeComponent();
         }
+
+        private void AddFloorButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddFloorPage());
+        }
+
+        private void AddNumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddNumberPage());
+        }
+
+        private void AddEmployeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddEmployeePage());
+        }
     }
 }
