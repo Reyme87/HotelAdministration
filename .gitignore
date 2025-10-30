@@ -368,4 +368,10 @@ FodyWeavers.xsd
 /.settings
 =======
 /HotelAdministration/Models/HotelContext.cs
+<<<<<<< HEAD
+>>>>>>> Изменение .gitignore
+=======
+/HotelAdministration/Migrations/20251030174853_InitialCreate.cs
+/HotelAdministration/Migrations/20251030174853_InitialCreate.Designer.cs
+/HotelAdministration/Migrations/HotelContextModelSnapshot.cs
 >>>>>>> Изменение .gitignore
