@@ -19,5 +19,7 @@ public partial class Employee
 
     public string? Status { get; set; }
 
+    public string? CleaningDay { get; set; }
+
     public virtual Floor CurrentFloor { get; set; } = null!;
 }

@@ -21,6 +21,8 @@ public partial class Client
 
     public int BookedRoomId { get; set; }
 
+    public int PayedAmount { get; set; }
+
     public DateOnly ArrivalDate { get; set; }
 
     public DateOnly CheckOutDate { get; set; }
