@@ -10,19 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace HotelAdministration.Views
 {
     /// <summary>
-    /// Логика взаимодействия для GuestWindow.xaml
+    /// Логика взаимодействия для GuestPage.xaml
     /// </summary>
-    public partial class GuestWindow : Window
+    public partial class GuestPage : Page
     {
-        public GuestWindow()
+        public GuestPage()
         {
             InitializeComponent();
-            GuestFrame.Content = new GuestPage();
+        }
+
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = mw;
         }
     }
 }

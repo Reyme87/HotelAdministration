@@ -1,0 +1,113 @@
+﻿<Page x:Class="HotelAdministration.Views.GuestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:HotelAdministration.Views"
+      xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1000"
+      Title="GuestPage">
+
+    <Page.Resources>
+        <ResourceDictionary/>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:GuestViewModel/>
+    </Page.DataContext>
+
+    <Grid Background="{StaticResource BackColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" 
+            Content="{StaticResource BackArrow}" FontWeight="Bold" x:Name="NavigationButton" Click="NavigationButton_Click"/>
+
+        <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Fill="{StaticResource ControlsColor}"/>
+
+        <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="15" Padding="15 0" CornerRadius="15" Background="{StaticResource ControlsPressColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid DataContext="{Binding SelectedPreview}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" CornerRadius="15" Margin="50 10" ClipToBounds="True">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding PicSource}" Stretch="UniformToFill"/>
+                        </Border.Background>
+                        <Border.Effect>
+                            <BlurEffect Radius="8"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="70 0">
+                        <Label Content="{Binding Type}" FontSize="48" Foreground="{StaticResource BackColor}" FontWeight="Bold" FontFamily="{StaticResource AdditionalFont}"/>
+                        <TextBlock FontSize="28" Foreground="{StaticResource BackColor}" FontWeight="Bold" FontFamily="{StaticResource AdditionalFont}">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="От {0} до {1}">
+                                    <Binding Path="MinPrice"/>
+                                    <Binding Path="MaxPrice"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <DockPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Button Command="{Binding SwipeLeftCommand}" Height="40" Width="40" HorizontalAlignment="Left" Content="&lt;" FontWeight="Bold"/>
+                    <Button Command="{Binding SwipeRightCommand}" Height="40" Width="40" HorizontalAlignment="Right" Content="&gt;" FontWeight="Bold"/>
+                </DockPanel>
+
+                <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Номера в категории:" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BackColor}"
+           VerticalAlignment="Top" Margin="15 5 0 0"/>
+        <ItemsControl ItemsSource="{Binding SelectedRooms, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontFamily="{StaticResource AdditionalFont}" Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="15 40 15 15">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel Margin="10 5">
+                        <TextBlock Text="{Binding RoomType, StringFormat=Тип: {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24"/>
+                        <TextBlock Text="{Binding PricePerNumber, StringFormat=Цена за ночь: {0} руб.}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24" Margin="30 0 0 0"/>
+                        <TextBlock Text="{Binding FloorId, StringFormat=Этаж: {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24" Margin="30 0 0 0"/>
+                        <Button Content="Забронировать" FontSize="24" FontFamily="{StaticResource MainFont}" HorizontalAlignment="Right" Margin="30 0 0 0"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Page>
