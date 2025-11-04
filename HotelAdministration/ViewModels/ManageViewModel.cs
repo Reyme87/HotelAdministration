@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using HotelAdministration.Commands;
 using HotelAdministration.ViewModels.Base;
@@ -85,15 +86,90 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region Employee
+
+        private string _lastName;
+        private string _firstName;
+        private string _middleName;
+        private string _phoneNumber;
+
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                Set(ref _lastName, value);
+            }
+        }
+
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                Set(ref _firstName, value);
+            }
+        }
+
+        public string MiddleName
+        {
+            get => _middleName;
+            set
+            {
+                Set(ref _middleName, value);
+            }
+        }
+
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                Set(ref _phoneNumber, value);
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Коллекции элементов
 
         private HotelContext _context = new HotelContext();
-        public ObservableCollection<Floor> Floors { get; set; }
-        public ObservableCollection<Room> Rooms { get; set; }
+        private ObservableCollection<Floor> _floors;
+        private ObservableCollection<Room> _rooms;
+        private ObservableCollection<Employee> _employees;
+
+        private List<string> days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+
+        public ObservableCollection<Floor> Floors
+        {
+            get => _floors;
+            set
+            {
+                Set(ref _floors, value);
+            }
+        }
+        public ObservableCollection<Room> Rooms
+        {
+            get => _rooms;
+            set
+            {
+                Set(ref _rooms, value);
+            }
+        }
+        public ObservableCollection<Employee> Employees
+        {
+            get => _employees;
+            set
+            {
+                Set(ref _employees, value);
+            }
+        }
 
         private Floor _selectedFloor;
+        private Room _selectedRoom;
+        private Employee _selectedEmployee;
 
         public Floor SelectedFloor
         {
@@ -103,6 +179,25 @@ namespace HotelAdministration.ViewModels
                 Set(ref _selectedFloor, value);
             }
         }
+
+        public Room SelectedRoom
+        {
+            get => _selectedRoom;
+            set
+            {
+                Set(ref _selectedRoom, value);
+            }
+        }
+
+        public Employee SelectedEmployee
+        {
+            get => _selectedEmployee;
+            set
+            {
+                Set(ref _selectedEmployee, value);
+            }
+        }
+
         #endregion
 
         #region Команды
@@ -143,7 +238,7 @@ namespace HotelAdministration.ViewModels
             room.RoomNumber = RoomNumber;
 
             room.FloorId = SelectedFloor.FloorId;
-            
+
             room.Capacity = Capacity;
             room.PricePerNumber = Price;
             switch(Capacity)
@@ -162,11 +257,57 @@ namespace HotelAdministration.ViewModels
             }
             room.FreePlaces = Capacity;
 
-            _context.Rooms.Add(room);
-            _context.SaveChanges();
+            try
+            {
+                _context.Rooms.Add(room);
+                _context.SaveChanges();
+
+                Rooms.Add(room);
+
+                RoomNumber = 0;
+                Capacity = 0;
+                Price = 0;
+            }
+            catch { }
         }
 
         public bool CanAddRoomCommandExecute(object p) => true;
+
+        #endregion
+
+        #region AddEmployeeCommand
+
+        public ICommand AddEmployeeCommand { get; }
+
+        public void OnAddEmployeeCommandExecuted(object p)
+        {
+            Employee employee = new Employee();
+            employee.LastName = LastName;
+            employee.FirstName = FirstName;
+            employee.MiddleName = MiddleName == null ? null : MiddleName;
+            employee.PhoneNumber = PhoneNumber;
+
+            int count = Employees.Count + 1;
+            employee.CurrentFloorId = count % Floors.Count;
+            employee.CurrentFloor = Floors[employee.CurrentFloorId];
+            employee.CleaningDay = days[(count - 1) % days.Count];
+
+            try
+            {
+                _context.Employees.Add(employee);
+                _context.SaveChanges();
+                Employees.Add(employee);
+
+                LastName = "";
+                FirstName = "";
+                MiddleName = "";
+                PhoneNumber = "";
+            }
+            catch { }
+            
+        }
+
+        public bool CanAddEmployeeCommandExecute(object p) => true;
 
         #endregion
 
@@ -180,6 +321,8 @@ namespace HotelAdministration.ViewModels
 
             AddRoomCommand = new RelayCommand(OnAddRoomCommandExecuted, CanAddRoomCommandExecute);
 
+            AddEmployeeCommand = new RelayCommand(OnAddEmployeeCommandExecuted, CanAddEmployeeCommandExecute);
+
             #endregion
 
             _context.Floors.Load();
@@ -187,6 +330,9 @@ namespace HotelAdministration.ViewModels
 
             _context.Rooms.Load();
             Rooms = _context.Rooms.Local.ToObservableCollection();
+
+            _context.Employees.Load();
+            Employees = _context.Employees.Local.ToObservableCollection();
         }
     }
 }
