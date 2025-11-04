@@ -4,10 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelAdministration.Views"
+      xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="600" FontFamily="{StaticResource MainFont}"
       Title="RegPage">
 
+    <Page.DataContext>
+        <vm:RegViewModel/>
+    </Page.DataContext>
+    
     <Grid Background="{StaticResource BackColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -39,32 +44,32 @@
                    Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                    Margin="130 5 130 3"/>
 
-            <TextBox Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
+            <TextBox Text="{Binding Name}" Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
             
             <Label Content="Телефон" 
                    Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                    Margin="130 3"/>
 
-            <TextBox Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
+            <TextBox Text="{Binding Phone}" Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
             
             <Label Content="e-mail" 
                    Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                    Margin="130 3"/>
 
-            <TextBox Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
+            <TextBox Text="{Binding Email}" Height="35" Width="350" VerticalAlignment="Top" FontSize="24" BorderThickness="2"/>
 
             <Label Content="Логин" 
                    Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                    VerticalAlignment="Bottom" Margin="130 3"/>
 
-            <TextBox Height="35" Width="350" VerticalAlignment="Bottom" FontSize="24" BorderThickness="2"/>
+            <TextBox Text="{Binding Login}" Height="35" Width="350" VerticalAlignment="Bottom" FontSize="24" BorderThickness="2"/>
 
             <Label Content="Пароль" 
                    Foreground="{StaticResource BackColor}" FontSize="20" FontWeight="Bold"
                    VerticalAlignment="Bottom" Margin="130 3"/>
 
-            
-            <TextBox Height="35" Width="350" VerticalAlignment="Bottom" FontSize="24" BorderThickness="2"/>
+
+            <TextBox Text="{Binding Password}" Height="35" Width="350" VerticalAlignment="Bottom" FontSize="24" BorderThickness="2"/>
         </StackPanel>
         
         <!--<Label Grid.Row="2" Grid.Column="0" Content="ФИО" 
@@ -94,7 +99,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Bottom" Margin="15 65" FontSize="24" BorderThickness="2"/>
         <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="350" VerticalAlignment="Bottom" Margin="15 20" FontSize="24" BorderThickness="2"/>-->
 
-        <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Content="Зарегистрироваться"  FontSize="20" FontWeight="Bold"
+        <Button Command="{Binding RegisterCommand}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Content="Зарегистрироваться"  FontSize="20" FontWeight="Bold"
                 VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20" x:Name="RegButton"/>
 
     </Grid>
