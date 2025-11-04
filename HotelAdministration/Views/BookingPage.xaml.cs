@@ -17,12 +17,13 @@ using System.Windows.Shapes;
 namespace HotelAdministration.Views
 {
     /// <summary>
-    /// Логика взаимодействия для GuestPage.xaml
+    /// Логика взаимодействия для BookingPage.xaml
     /// </summary>
-    public partial class GuestPage : Page
+    public partial class BookingPage : Page
     {
         private readonly GuestViewModel _vm = GuestViewModel.Instance;
-        public GuestPage()
+
+        public BookingPage()
         {
             InitializeComponent();
             DataContext = _vm;
@@ -30,15 +31,7 @@ namespace HotelAdministration.Views
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            mw.Show();
-            Application.Current.MainWindow.Close();
-            Application.Current.MainWindow = mw;
-        }
-
-        private void BookButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new BookingPage());
+            NavigationService.GoBack();
         }
     }
 }
