@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelAdministration.Views"
       xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      Language="ru-RU"
       d:DesignHeight="800" d:DesignWidth="1000" FontFamily="{StaticResource MainFont}"
       Title="BookingPage">
 
@@ -64,7 +65,7 @@
                     <TextBlock Text="{Binding PricePerNumber, StringFormat=Цена: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
                 </StackPanel>
             </DockPanel>
-         </Border>
+        </Border>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"
               Margin="10">
@@ -84,42 +85,43 @@
 
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="Добавление данных о клиенте" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-            <ListView Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4">
-                <DockPanel>
-                    <Label Content="Фамилия" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Имя" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Отчество" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <TextBox Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Номер телефона" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Email" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <TextBox FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Город" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <TextBox Text="{Binding City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Дата заселения" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <DatePicker Text="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-                <DockPanel>
-                    <Label Content="Дата отъезда" FontSize="20" Foreground="{StaticResource BackColor}"/>
-                    <DatePicker Text="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300"/>
-                </DockPanel>
-            </ListView>
-
-            <Button Grid.Row="1" Grid.Column="3" Content="+" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15"/>
+            <ScrollViewer Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto">
+                <ItemsControl >
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Фамилия" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="85 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Имя" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="131 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Отчество" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <TextBox Text="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="88 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Номер телефона" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="18 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Email" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="122 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Город" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <TextBox Text="{Binding City, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="118 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Дата заселения" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <DatePicker Text="{Binding CheckInDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="30 0"/>
+                    </DockPanel>
+                    <DockPanel Margin="10 10 10 5">
+                        <Label Content="Дата отъезда" FontSize="20" Foreground="{StaticResource ForeColor}"/>
+                        <DatePicker Text="{Binding CheckOutDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontSize="20" MinWidth="160" MaxWidth="300" HorizontalAlignment="Left" Margin="53 0"/>
+                    </DockPanel>
+                </ItemsControl>
+            </ScrollViewer>
+            <Button Command="{Binding AddClientCommand}" Grid.Row="1" Grid.Column="3" Content="+" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30 15"/>
         </Grid>
 
         <Grid Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"
@@ -139,15 +141,25 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Content="Список клиентов" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            
-            <ListBox Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="4">
 
+            <ListBox ItemsSource="{Binding Clients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="4">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="24" Margin="10">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="LastName"/>
+                                    <Binding Path="FirstName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button Grid.Row="1" Grid.Column="3" Content="-" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15"/>
+            <Button Command="{Binding RemoveClientCommand}" Grid.Row="1" Grid.Column="3" Content="-" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15"/>
         </Grid>
-        
 
-        <Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Content="Забронировать" FontWeight="Bold" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Command="{Binding BookRoomCommand}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Content="Забронировать" FontWeight="Bold" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>
