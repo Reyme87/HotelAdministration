@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelAdministration.Views"
+      xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"  FontFamily="{StaticResource MainFont}"
       Title="AdminPage">
@@ -12,6 +13,10 @@
         <ResourceDictionary/>
     </Page.Resources>
 
+    <Page.DataContext>
+        <vm:ManageViewModel/>
+    </Page.DataContext>
+    
     <Grid Background="{StaticResource BackColor}">
         <TabControl Background="{StaticResource ControlsColor}">
             <TabItem Header="Профиль" FontSize="20">
@@ -80,19 +85,28 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Floors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedFloor}" Grid.RowSpan="4" Margin="10 10 10 60">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="10 5">
+                                    <Label Content="Этаж: " Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                    <Label Content="{Binding FloorNumber}" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
-                        <StackPanel>
+                        <StackPanel DataContext="{Binding SelectedFloor}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Этаж"
                                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Номер: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="2" FontSize="28"/>
+                                <Label Content="{Binding FloorNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Кол-во комнат : " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="148..." FontSize="28"/>
+                                <Label Content="{Binding TotalRoomsNumber}" FontSize="28"/>
                             </DockPanel>
                         </StackPanel>
                     </Border>
@@ -118,43 +132,52 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom}" Margin="10 10 10 60">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="10 5">
+                                    <Label Content="Комната № " Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                    <Label Content="{Binding RoomNumber}" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
-                        <StackPanel>
+                        <StackPanel DataContext="{Binding SelectedRoom}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Комната"
                                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Номер: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="2" FontSize="28"/>
+                                <Label Content="{Binding RoomNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Этаж: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="2" FontSize="28"/>
+                                <Label Content="{Binding Floor.FloorNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Тип: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Одноместный" FontSize="28"/>
+                                <Label Content="{Binding RoomType}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Вместимость: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="1" FontSize="28"/>
+                                <Label Content="{Binding Capacity}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Свободно мест: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="0" FontSize="28"/>
+                                <Label Content="{Binding FreePlaces}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Цена: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="1337" FontSize="28"/>
+                                <Label Content="{Binding PricePerNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Забронирован: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Да" FontSize="28"/>
+                                <Label Content="{Binding IsBooked}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Доступен: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Нет" FontSize="28"/>
+                                <Label Content="{Binding IsAvailable}" FontSize="28"/>
                             </DockPanel>
                         </StackPanel>
                     </Border>
@@ -180,35 +203,48 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" ItemsSource="{Binding Employees, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedEmployee}" Margin="10 10 10 60">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="10 5">
+                                    <Label Content="Сотрудник" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                    <Label Content="{Binding LastName}" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
-                        <StackPanel>
+                        <StackPanel DataContext="{Binding SelectedEmployee}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Сотрудник"
                                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Фамилия: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Александров" FontSize="28"/>
+                                <Label Content="{Binding LastName}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Имя: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Александр" FontSize="28"/>
+                                <Label Content="{Binding FirstName}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Отчество: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Александрович" FontSize="28"/>
+                                <Label Content="{Binding MiddleName}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Телефон: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="+88005553535" FontSize="28"/>
+                                <Label Content="{Binding PhoneNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Статус: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Работает" FontSize="28"/>
+                                <Label Content="{Binding Status}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Текущий этаж: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="2" FontSize="28"/>
+                                <Label Content="{Binding CurrentFloor.FloorNumber}" FontSize="28"/>
+                            </DockPanel>
+                            <DockPanel Margin="5 5 5 0">
+                            <Label Content="День уборки: " FontSize="28" FontWeight="Bold"/>
+                            <Label Content="{Binding CleaningDay}" FontSize="28"/>
                             </DockPanel>
 
                         </StackPanel>
@@ -275,6 +311,10 @@
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Выезд: " FontSize="28" FontWeight="Bold"/>
                                 <Label Content="12/10/25" FontSize="28"/>
+                            </DockPanel>
+                            <DockPanel Margin="5 5 5 0">
+                                <Label Content="Внесённая сумма: " FontSize="28" FontWeight="Bold"/>
+                                <Label Content="12500" FontSize="28"/>
                             </DockPanel>
                         </StackPanel>
                     </Border>
