@@ -4,9 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using HotelAdministration.Commands;
+using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
+using HotelAdministration.Views;
+using PasswordManager.Models;
 
 namespace HotelAdministration.ViewModels
 {
@@ -19,6 +23,9 @@ namespace HotelAdministration.ViewModels
         private string? _email;
         private string? _login;
         private string? _password;
+
+        private string _authLogin;
+        private string _authPassword;
 
         public string? Name
         {
@@ -65,6 +72,23 @@ namespace HotelAdministration.ViewModels
             }
         }
 
+        public string AuthLogin
+        {
+            get => _authLogin;
+            set
+            {
+                Set(ref _authLogin, value);
+            }
+        }
+
+        public string AuthPassword
+        {
+            get => _authPassword;
+            set
+            {
+                Set(ref _authPassword, value);
+            }
+        }
 
         #endregion
 
@@ -89,20 +113,64 @@ namespace HotelAdministration.ViewModels
                 middleName = nameParts[2];
             }
 
-            //Administrator admin = new Administrator();
-            //admin.LastName = lastName;
-            //admin.FirstName = firstName;
-            //admin.MiddleName = middleName;
-            //admin.PhoneNumber = Phone;
-            //admin.Email = Email;
-            //admin.Login = Login;
-            //admin.PasswordHash = Password;
+            Administrator admin = new Administrator();
+            admin.LastName = lastName;
+            admin.FirstName = firstName;
+            admin.MiddleName = middleName;
+            admin.PhoneNumber = Phone;
+            admin.Email = Email;
+            admin.Login = Login;
+            admin.PasswordHash = Password;
 
-            //_context.Add(admin);
-            //_context.SaveChanges();
+            try
+            {
+                JsonController<Administrator>.LoadInfoAsync(admin, "admin.json");
+                Name = "";
+                Phone = "";
+                Email = "";
+                Login = "";
+                Password = "";
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка регистрации.");
+            }
         }
 
         public bool CanRegisterCommandExecute(object p) => true;
+
+        #endregion
+
+        #region AuthCommand
+
+        public ICommand AuthCommand { get; }
+
+        public async void OnAuthCommandExecuted(object p)
+        {
+            Administrator admin = JsonController<Administrator>.GetInfo<Administrator>("admin.json");
+
+            try
+            {
+                if ((Equals(AuthLogin, admin.Login) || Equals(AuthLogin, admin.Email)) && Equals(AuthPassword, admin.PasswordHash))
+                {
+                    AdminWindow aw = new AdminWindow();
+                    aw.Show();
+                    Application.Current.MainWindow.Close();
+                    Application.Current.MainWindow = aw;
+                }
+                else
+                {
+                    MessageBox.Show("Неверный логин или пароль.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка авторизации!");
+            }
+
+        }
+
+        public bool CanAuthCommandExecute(object p) => !Equals(AuthLogin, null) && !Equals(AuthPassword, null);
 
         #endregion
 
@@ -113,6 +181,8 @@ namespace HotelAdministration.ViewModels
             #region Команды
 
             RegisterCommand = new RelayCommand(OnRegisterCommandExecuted, CanRegisterCommandExecute);
+
+            AuthCommand = new RelayCommand(OnAuthCommandExecuted, CanAuthCommandExecute);
 
             #endregion
         }
