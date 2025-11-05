@@ -14,6 +14,9 @@ namespace HotelAdministration.ViewModels
 {
     public class ManageViewModel : ViewModel
     {
+        private static ManageViewModel _instance;
+        public static ManageViewModel Instance => _instance ?? new ManageViewModel();
+
         #region Элементы полей
 
         #region Floor
@@ -228,6 +231,19 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region RemoveFloorCommand
+
+        public ICommand RemoveFloorCommand { get; }
+
+        public void OnRemoveFloorCommandExecuted(object p)
+        {
+            Floors.Remove(SelectedFloor);
+        }
+
+        public bool CanRemoveFloorCommandExecute(object p) => !Equals(SelectedFloor, null);
+
+        #endregion
+
         #region AddRoomCommand
 
         public ICommand AddRoomCommand { get; }
@@ -275,6 +291,19 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region RemoveRoomCommand
+
+        public ICommand RemoveRoomCommand { get; }
+
+        public void OnRemoveRoomCommandExecuted(object p)
+        {
+            Rooms.Remove(SelectedRoom);
+        }
+
+        public bool CanRemoveRoomCommandExecute(object p) => !Equals(SelectedRoom, null);
+
+        #endregion
+
         #region AddEmployeeCommand
 
         public ICommand AddEmployeeCommand { get; }
@@ -311,6 +340,19 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region RemoveEmployeeCommand
+
+        public ICommand RemoveEmployeeCommand { get; }
+
+        public void OnRemoveEmployeeCommandExecuted(object p)
+        {
+            Employees.Remove(SelectedEmployee);
+        }
+
+        public bool CanRemoveEmployeeCommandExecute(object p) => !Equals(SelectedEmployee, null);
+
+        #endregion
+
         #endregion
 
         public ManageViewModel()
@@ -322,6 +364,12 @@ namespace HotelAdministration.ViewModels
             AddRoomCommand = new RelayCommand(OnAddRoomCommandExecuted, CanAddRoomCommandExecute);
 
             AddEmployeeCommand = new RelayCommand(OnAddEmployeeCommandExecuted, CanAddEmployeeCommandExecute);
+
+            RemoveFloorCommand = new RelayCommand(OnRemoveFloorCommandExecuted, CanRemoveFloorCommandExecute);
+
+            RemoveRoomCommand = new RelayCommand(OnRemoveRoomCommandExecuted, CanRemoveRoomCommandExecute);
+
+            RemoveEmployeeCommand = new RelayCommand(OnRemoveEmployeeCommandExecuted, CanRemoveEmployeeCommandExecute);
 
             #endregion
 
