@@ -36,9 +36,9 @@
         <Label Grid.Column="1" Grid.Row="2" Content="Кол-во комнат" FontSize="24" FontWeight="DemiBold"
        VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <TextBox Text="{Binding FloorNumber}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
+        <TextBox Text="{Binding FloorNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
          VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Text="{Binding TotalRooms}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
+        <TextBox Text="{Binding TotalRooms, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"  Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
          VerticalAlignment="Center" Height="35" Margin="5"/>
 
         <Button Command="{Binding AddFloorCommand}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Content="Добавить" 

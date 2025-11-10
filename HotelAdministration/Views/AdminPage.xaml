@@ -99,8 +99,8 @@
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel DataContext="{Binding SelectedFloor}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Этаж"
-                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
-                            <DockPanel Margin="5 5 5 0">
+                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5 5 5 0" FontSize="36" FontWeight="Bold"/>
+                            <DockPanel Margin="5 0 5 0">
                                 <Label Content="Номер: " FontSize="28" FontWeight="Bold"/>
                                 <Label Content="{Binding FloorNumber}" FontSize="28"/>
                             </DockPanel>
@@ -113,7 +113,7 @@
 
                     <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
                         <Button x:Name="AddFloorButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddFloorButton_Click"/>
-                        <Button x:Name="DeleteFloorButton" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                        <Button Command="{Binding RemoveFloorCommand}" x:Name="DeleteFloorButton" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
@@ -146,8 +146,8 @@
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel DataContext="{Binding SelectedRoom}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Комната"
-                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
-                            <DockPanel Margin="5 5 5 0">
+                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5 5 5 0" FontSize="36" FontWeight="Bold"/>
+                            <DockPanel Margin="5 0 5 0">
                                 <Label Content="Номер: " FontSize="28" FontWeight="Bold"/>
                                 <Label Content="{Binding RoomNumber}" FontSize="28"/>
                             </DockPanel>
@@ -184,7 +184,7 @@
 
                     <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
                         <Button x:Name="AddNumberButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddNumberButton_Click"/>
-                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                        <Button Command="{Binding RemoveRoomCommand}" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
@@ -207,8 +207,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
-                                    <Label Content="Сотрудник" Foreground="{StaticResource ForeColor}" FontSize="28"/>
-                                    <Label Content="{Binding LastName}" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                    <TextBlock Text="{Binding LastName, StringFormat=Сотрудник {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis"/>
                                 </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -217,10 +216,10 @@
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel DataContext="{Binding SelectedEmployee}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Сотрудник"
-                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
-                            <DockPanel Margin="5 5 5 0">
+                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5 5 5 0" FontSize="36" FontWeight="Bold"/>
+                            <DockPanel Margin="5 0 5 0">
                                 <Label Content="Фамилия: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="{Binding LastName}" FontSize="28"/>
+                                <TextBlock Text="{Binding LastName}" VerticalAlignment="Center" FontSize="28" TextWrapping="Wrap"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Имя: " FontSize="28" FontWeight="Bold"/>
@@ -228,7 +227,7 @@
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Отчество: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="{Binding MiddleName}" FontSize="28"/>
+                                <TextBlock Text="{Binding MiddleName}" VerticalAlignment="Center" FontSize="28" TextWrapping="Wrap"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Телефон: " FontSize="28" FontWeight="Bold"/>
@@ -251,7 +250,7 @@
                     </Border>
                     <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
                         <Button x:Name="AddEmployeeButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddEmployeeButton_Click"/>
-                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                        <Button Command="{Binding RemoveEmployeeCommand}" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
                 </Grid>
             </TabItem>
@@ -270,51 +269,64 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60"/>
+                    <ListBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis" Margin="10 5">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="LastName"/>
+                                            <Binding Path="FirstName"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
-                        <StackPanel>
+                        <StackPanel DataContext="{Binding SelectedClient}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Клиент"
-                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5" FontSize="36" FontWeight="Bold"/>
-                            <DockPanel Margin="5 5 5 0">
+                               VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5 5 5 0" FontSize="36" FontWeight="Bold"/>
+                            <DockPanel Margin="5 0 5 0">
                                 <Label Content="Фамилия: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Сергеев" FontSize="28"/>
+                                <Label Content="{Binding LastName}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Имя: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Сергей" FontSize="28"/>
+                                <Label Content="{Binding FirstName}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Отчество: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Сергеевич" FontSize="28"/>
+                                <Label Content="{Binding MiddleName}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Телефон: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="+88005553535" FontSize="28"/>
+                                <Label Content="{Binding PhoneNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="E-mail: " FontSize="28" FontWeight="Bold"/>
-                                <TextBlock Text="babababebebe@mail.ru" FontSize="28" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Email}" FontSize="28" TextWrapping="Wrap"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Город: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="Тамбоу" FontSize="28"/>
+                                <Label Content="{Binding City}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Комната: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="2" FontSize="28"/>
+                                <Label Content="{Binding BookedRoom.RoomNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Прибытие: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="02/10/25" FontSize="28"/>
+                                <Label Content="{Binding ArrivalDate}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Выезд: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="12/10/25" FontSize="28"/>
+                                <Label Content="{Binding CheckOutDate}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Внесённая сумма: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="12500" FontSize="28"/>
+                                <Label Content="{Binding PayedAmount}" FontSize="28"/>
                             </DockPanel>
                         </StackPanel>
                     </Border>

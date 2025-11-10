@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelAdministration.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace HotelAdministration.Views
     /// </summary>
     public partial class AdminPage : Page
     {
+        private readonly ManageViewModel _vm = ManageViewModel.Instance;
         public AdminPage()
         {
             InitializeComponent();
+            DataContext = _vm;
         }
 
         private void AddFloorButton_Click(object sender, RoutedEventArgs e)
