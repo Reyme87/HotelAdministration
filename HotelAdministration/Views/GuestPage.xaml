@@ -100,17 +100,20 @@
 
         <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Auto" Margin="15 40 15 15">
             <ItemsControl ItemsSource="{Binding SelectedRooms, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontFamily="{StaticResource AdditionalFont}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <DockPanel Margin="10 5">
-                        <TextBlock Text="{Binding RoomType, StringFormat=Тип: {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24"/>
-                        <TextBlock Text="{Binding PricePerNumber, StringFormat=Цена за ночь: {0} руб.}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24" Margin="30 0 0 0"/>
-                        <TextBlock Text="{Binding FloorId, StringFormat=Этаж: {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24" Margin="30 0 0 0"/>
-                        <Button Command="{Binding DataContext.PreBookRoomCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" x:Name="BookButton" Content="Забронировать" FontSize="24" FontFamily="{StaticResource MainFont}" HorizontalAlignment="Right" Margin="30 0 15 0" Click="BookButton_Click"/>
-                    </DockPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Margin="10 5">
+                            <TextBlock Text="{Binding RoomType, StringFormat=Тип: {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24"/>
+                            <TextBlock Text="{Binding PricePerNumber, StringFormat=Цена за ночь: {0} руб.}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24" Margin="30 0 0 0"/>
+                            <TextBlock Text="{Binding FloorId, StringFormat=Этаж: {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="24" Margin="30 0 0 0"/>
+                            <Button Command="{Binding DataContext.PreBookRoomCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" x:Name="BookButton" Content="Забронировать" FontSize="24" FontFamily="{StaticResource MainFont}" HorizontalAlignment="Right" Margin="30 0 15 0" Click="BookButton_Click"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
+
+        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="В данный момент нет свободных номеров этого типа" FontSize="32" Foreground="{StaticResource ForeColor}"
+               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding VisibilityParam}"/>
     </Grid>
 </Page>

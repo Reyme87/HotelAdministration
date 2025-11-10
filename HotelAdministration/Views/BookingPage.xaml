@@ -53,16 +53,24 @@
                  Background="{StaticResource ControlsPressColor}" CornerRadius="15" Margin="10">
             <DockPanel Margin="10">
                 <StackPanel>
-                    <TextBlock Text="{Binding RoomType, StringFormat=Тип: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
-                    <TextBlock Text="{Binding Capacity, StringFormat=Вместимость: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
+                    <TextBlock Text="{Binding RoomType, StringFormat=Тип: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15"/>
+                    <TextBlock Text="{Binding Capacity, StringFormat=Вместимость: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15"/>
                 </StackPanel>
-                <StackPanel Margin="100 0 0 0">
-                    <TextBlock Text="{Binding FloorId, StringFormat=Этаж: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
-                    <TextBlock Text="{Binding RoomNumber, StringFormat=Номер: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
+                <StackPanel Margin="00 0 0 0">
+                    <TextBlock Text="{Binding FloorId, StringFormat=Этаж: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15"/>
+                    <TextBlock Text="{Binding RoomNumber, StringFormat=Номер: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15"/>
                 </StackPanel>
-                <StackPanel Margin="100 0 0 0">
-                    <TextBlock Text="{Binding IsAvailable, StringFormat=Свободен: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
-                    <TextBlock Text="{Binding PricePerNumber, StringFormat=Цена: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>
+                <StackPanel Margin="00 0 0 0">
+                    <TextBlock Text="{Binding IsAvailable, StringFormat=Свободен: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15"/>
+                    <TextBlock Text="{Binding PricePerNumber, StringFormat=Цена: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15"/>
+                </StackPanel>
+                <StackPanel Margin="00 0 0 0">
+                    <TextBlock Text="{Binding DataContext.PriceForOnePlace, RelativeSource={RelativeSource AncestorType=Grid}, StringFormat=Стоимость места: {0}}" Foreground="{StaticResource ForeColor}" FontSize="26" Margin="15" TextWrapping="Wrap"/>
+                    <!--<DockPanel>-->
+                        <!--<TextBlock Text="{Binding PricePerNumber, StringFormat=Цена: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="15"/>-->
+                    <Button Command="{Binding DataContext.CalculatePriceCommand, RelativeSource={RelativeSource AncestorType=Grid}}" Content="Вычислить" Width="140" FontSize="24" Height="40" HorizontalAlignment="Center" Margin="15"/>
+                    <!--</DockPanel>-->
+                    
                 </StackPanel>
             </DockPanel>
         </Border>
