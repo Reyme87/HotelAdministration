@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HotelAdministration.Views"
       xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"  FontFamily="{StaticResource MainFont}"
+      d:DesignHeight="700" d:DesignWidth="900"  FontFamily="{StaticResource MainFont}"
       Title="AdminPage">
 
     <Page.Resources>
@@ -19,7 +19,7 @@
     
     <Grid Background="{StaticResource BackColor}">
         <TabControl Background="{StaticResource ControlsColor}">
-            <TabItem Header="Профиль" FontSize="20">
+            <!--<TabItem Header="Профиль" FontSize="20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -69,9 +69,15 @@
 
                     <Button Grid.Row="3" Grid.Column="1" Content="Сохранить" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
 
-            <TabItem Header="Этажи" FontSize="20">
+            <TabItem FontSize="20">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource FloorIcon}" Height="35" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="Этажи" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="10 0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -89,8 +95,8 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
-                                    <Label Content="Этаж: " Foreground="{StaticResource ForeColor}" FontSize="28"/>
-                                    <Label Content="{Binding FloorNumber}" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                    <!--<Label Content="Этаж: " Foreground="{StaticResource ForeColor}" FontSize="28"/>-->
+                                    <TextBlock Text="{Binding FloorNumber, StringFormat=Этаж: {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="5"/>
                                 </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -115,10 +121,19 @@
                         <Button x:Name="AddFloorButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddFloorButton_Click"/>
                         <Button Command="{Binding RemoveFloorCommand}" x:Name="DeleteFloorButton" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
+
+                    <!--<Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="10 20 10 10"
+                            Content="Запросы"/>-->
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Номера" FontSize="20">
+            <TabItem FontSize="20">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource RoomIcon}" Height="35" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="Номера" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="10 0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -136,8 +151,8 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
-                                    <Label Content="Комната № " Foreground="{StaticResource ForeColor}" FontSize="28"/>
-                                    <Label Content="{Binding RoomNumber}" Foreground="{StaticResource ForeColor}" FontSize="28"/>
+                                    <!--<Label Content="Комната № " Foreground="{StaticResource ForeColor}" FontSize="28"/>-->
+                                    <TextBlock Text="{Binding RoomNumber, StringFormat= Комната № {0}}" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="5"/>
                                 </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -189,7 +204,13 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Сотрудники" FontSize="20">
+            <TabItem FontSize="20">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource EmployeeIcon}" Height="35" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="Сотрудники" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="10 0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -207,7 +228,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
-                                    <TextBlock Text="{Binding LastName, StringFormat=Сотрудник {0}}" VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding LastName, StringFormat=Сотрудник {0}}" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="{StaticResource ForeColor}" FontSize="28" MaxWidth="315" MinWidth="315" TextTrimming="CharacterEllipsis" Margin="5"/>
                                 </DockPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -219,7 +240,7 @@
                                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5 5 5 0" FontSize="36" FontWeight="Bold"/>
                             <DockPanel Margin="5 0 5 0">
                                 <Label Content="Фамилия: " FontSize="28" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding LastName}" VerticalAlignment="Center" FontSize="28" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding LastName}" Foreground="{StaticResource BackColor}" VerticalAlignment="Center" FontSize="28" TextWrapping="Wrap"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Имя: " FontSize="28" FontWeight="Bold"/>
@@ -227,7 +248,7 @@
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Отчество: " FontSize="28" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding MiddleName}" VerticalAlignment="Center" FontSize="28" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding MiddleName}" Foreground="{StaticResource BackColor}" VerticalAlignment="Center" FontSize="28" TextWrapping="Wrap"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Телефон: " FontSize="28" FontWeight="Bold"/>
@@ -255,7 +276,13 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Клиенты" FontSize="20">
+            <TabItem FontSize="20">
+                <TabItem.Header >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource ClientIcon}" Height="35" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="Клиенты" VerticalAlignment="Center" FontWeight="Bold" Margin="10 0"/>
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -272,7 +299,7 @@
                     <ListBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock VerticalAlignment="Center" Foreground="{StaticResource ForeColor}" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis" Margin="10 5">
+                                <TextBlock Foreground="{StaticResource ForeColor}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis" Margin="10">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} {1}">
                                             <Binding Path="LastName"/>
@@ -306,7 +333,7 @@
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="E-mail: " FontSize="28" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Email}" FontSize="28" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Email}" Foreground="{StaticResource BackColor}" FontSize="28" TextWrapping="Wrap"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Город: " FontSize="28" FontWeight="Bold"/>
@@ -335,6 +362,84 @@
                         <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
                         <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem FontSize="20">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource InfoIcon}" Height="35" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="Инфо" VerticalAlignment="Center" FontWeight="Bold" Margin="10 0"/>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"
+                            Background="{StaticResource ForeColor}" CornerRadius="15" Margin="10">
+                        <DockPanel Margin="10">
+                            <Image Source="{StaticResource MoneyIcon}" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <StackPanel>
+                                <Label Content="Общая выплаченная клиентами сумма" Foreground="{StaticResource BackColor}" FontSize="32" Margin="15"/>
+                                <TextBlock Text="{Binding TotalPayedAmount, StringFormat={}{0} руб., Mode=OneWay}" Foreground="{StaticResource BackColor}" FontSize="40"  FontWeight="Bold" Margin="15 5"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                            Background="{StaticResource ControlsPressColor}" CornerRadius="15" Margin="10">
+                        <DockPanel Margin="15">
+                            <Image Source="{StaticResource FreeRoomsIcon}" Height="100" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <StackPanel>
+                                <Label Content="Свободных номеров" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="10 20 5 5"/>
+                                <TextBlock Text="{Binding TotalFreeRoomsAmount, StringFormat={}{0}, Mode=OneWay}" Foreground="{StaticResource ForeColor}" FontSize="36"  FontWeight="Bold" Margin="15 5"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                            Background="{StaticResource ControlsPressColor}" CornerRadius="15" Margin="10">
+                        <DockPanel Margin="15">
+                            <Image Source="{StaticResource BedIcon}" Height="100" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <StackPanel>
+                                <Label Content="Свободных мест" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="10 20 10 5"/>
+                                <TextBlock Text="{Binding TotalFreePlacesAmount, StringFormat={}{0}, Mode=OneWay}" Foreground="{StaticResource ForeColor}" FontSize="36"  FontWeight="Bold" Margin="15 5"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2"
+                            Background="{StaticResource BackColor}" CornerRadius="15" Margin="10">
+                        <DockPanel Margin="15">
+                            <Image Source="{StaticResource PriceIcon}" Height="150" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <StackPanel>
+                                <TextBlock Text="Цена за одно место" Foreground="{StaticResource ForeColor}" FontSize="32" Margin="15 15 15 0" TextWrapping="Wrap"/>
+                                <DockPanel Margin="15 0">
+                                    <Label Content="В" FontSize="28" Foreground="{StaticResource ForeColor}"/>
+                                    <TextBox Text="{Binding InfoRoomNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="70" FontSize="28" Margin="15 0"/>
+                                    <Label Content="комнате на" FontSize="28" Foreground="{StaticResource ForeColor}"/>
+                                    <TextBox Text="{Binding InfoFloorNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="70" FontSize="28" Margin="15 0"/>
+                                    <Label Content="этаже" FontSize="28" Foreground="{StaticResource ForeColor}"/>
+                                    <Button Command="{Binding GetPriceCommand}" Content="Вычислить" HorizontalAlignment="Right" FontSize="24" FontWeight="Bold"/>
+                                </DockPanel>
+                                <TextBlock Text="{Binding PriceForOnePlace, StringFormat={}{0} руб., Mode=OneWay}" Foreground="{StaticResource ForeColor}" FontSize="40"  FontWeight="Bold" Margin="15 5"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>
