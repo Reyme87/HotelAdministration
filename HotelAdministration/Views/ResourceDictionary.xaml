@@ -7,14 +7,25 @@
     <Brush x:Key="BackColor">#240F13</Brush>
     <Brush x:Key="ControlsColor">#D79F86</Brush>
     <Brush x:Key="ForeColor">#F0EADF</Brush>
-    <Brush x:Key="UnenabledColor">#DBD5CC</Brush>
+    <Brush x:Key="UnenabledColor">#ABA59F</Brush>
 
     <Brush x:Key="ControlsHoverColor">#A2563D</Brush>
     <Brush x:Key="ControlsPressColor">#572828</Brush>
 
-    <Image x:Key="BackArrow" Source="/Resources/BackArrow.png" x:Shared="False"/>
-    <BitmapImage x:Key="BackgroundImage" UriSource="/Resources/background.png"/>
-    <BitmapImage x:Key="IntroImage" UriSource="/Resources/astoriaHotel.jpg"/>
+    <Image x:Key="BackArrow" Source="/Resources/BackArrow.png" x:Shared="False" RenderOptions.BitmapScalingMode="HighQuality"/>
+    <BitmapImage x:Key="FloorIcon" UriSource="/Resources/FloorIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="RoomIcon" UriSource="/Resources/RoomIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="EmployeeIcon" UriSource="/Resources/EmployeeIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="ClientIcon" UriSource="/Resources/ClientIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="InfoIcon" UriSource="/Resources/InfoIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="ErrorIcon" UriSource="/Resources/ErrorIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="MoneyIcon" UriSource="/Resources/MoneyIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="FreeRoomsIcon" UriSource="/Resources/FreeRoomsIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="BedIcon" UriSource="/Resources/BedIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="PriceIcon" UriSource="/Resources/PriceIcon.png" x:Shared="False"/>
+
+    <BitmapImage x:Key="BackgroundImage" UriSource="/Resources/background.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+    <BitmapImage x:Key="IntroImage" UriSource="/Resources/astoriaHotel.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
 
     <Style TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{StaticResource ForeColor}"/>
@@ -81,6 +92,36 @@
 
     </Style>
 
+    <Style TargetType="{x:Type PasswordBox}">
+        <Setter Property="Background" Value="{StaticResource ForeColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource BackColor}"/>
+        <Setter Property="SelectionBrush" Value="{StaticResource ControlsHoverColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BackColor}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Border x:Name="border" CornerRadius="5"
+            BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ControlsPressColor}" />
+                            <Setter Property="CaretBrush" Value="{StaticResource ForeColor}"/>
+                            <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelectionActive" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource ControlsHoverColor}" />
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{StaticResource BackColor}"/>
         <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
@@ -117,6 +158,121 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
 
+    <Style TargetType="{x:Type ListView}">
+        <Setter Property="Background" Value="{StaticResource BackColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ForeColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style TargetType="{x:Type ListViewItem}">
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" CornerRadius="5"
+                    BorderThickness="2"
+                    SnapsToDevicePixels="true">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ControlsPressColor}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" SourceName="Border" Value="True" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ControlsHoverColor}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ItemsControl}">
+        <Setter Property="Background" Value="{StaticResource BackColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ForeColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Style.Resources>
+            <Style TargetType="Border">
+                <Setter Property="CornerRadius" Value="10"></Setter>
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <!--<Style TargetType="{x:Type ItemsControlItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" CornerRadius="5"
+                    BorderThickness="2"
+                    SnapsToDevicePixels="true">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ControlsPressColor}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" SourceName="Border" Value="True" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ControlsHoverColor}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+    <Style TargetType="{x:Type TabItem}">
+        <Setter Property="Background" Value="{StaticResource ControlsColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid Name="Panel">
+                        <ContentPresenter x:Name="ContentSite"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                ContentSource="Header"
+                                Margin="10,2"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ForeColor}" />
+                            <!--<Setter TargetName="Panel" Property="TextElement.Foreground" Value="{StaticResource BackColor}"/>-->
+                            <Setter Property="Foreground" Value="{StaticResource BackColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ControlsPressColor}" />
+                            <!--<Setter TargetName="Panel" Property="TextElement.Foreground" Value="{StaticResource ForeColor}"/>-->
+                            <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" SourceName="Panel" Value="True" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Panel" Property="Background" Value="{StaticResource ControlsHoverColor}" />
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
