@@ -8,13 +8,19 @@ namespace HotelAdministration.Models
     {
         private static HotelContext _context = new HotelContext();
 
-        public static int? GetAvailableRoomsCount()
+        public static int GetAvailableRoomsCount()
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
             command.CommandText = "SELECT get_available_rooms_count()";
             _context.Database.OpenConnection();
 
-            int? availableRoomsCount = (int?)command.ExecuteScalar() ?? 0;
+            var result = command.ExecuteScalar();
+            int availableRoomsCount = 0;
+
+            if (result != null && result != DBNull.Value)
+            {
+                availableRoomsCount = (int)result;
+            }
 
             _context.Database.CloseConnection();
 
@@ -67,20 +73,26 @@ namespace HotelAdministration.Models
             }
         }
 
-        public static int? GetFreePlacesCount()
+        public static int GetFreePlacesCount()
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
             command.CommandText = "SELECT get_free_places_count()";
             _context.Database.OpenConnection();
 
-            int? freePlacesCount = (int?)command.ExecuteScalar() ?? 0;
+            var result = command.ExecuteScalar();
+            int freePlacesCount = 0;
+
+            if (result != null && result != DBNull.Value)
+            {
+                freePlacesCount = (int)result;
+            }
 
             _context.Database.CloseConnection();
 
             return freePlacesCount;
         }
 
-        public static int? GetPlacePrice(int floorNumber, int roomNumber)
+        public static int GetPlacePrice(int floorNumber, int roomNumber)
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
             command.CommandText = "SELECT get_place_price(@floor_number, @room_number)";
@@ -89,21 +101,33 @@ namespace HotelAdministration.Models
 
             _context.Database.OpenConnection();
 
-            int? price = (int?)command.ExecuteScalar() ?? 0;
+            var result = command.ExecuteScalar();
+            int price = 0;
+
+            if (result != null && result != DBNull.Value)
+            {
+                price = (int)result;
+            }
 
             _context.Database.CloseConnection();
 
             return price;
         }
 
-        public static int? GetTotalPayedAmount()
+        public static int GetTotalPayedAmount()
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
             command.CommandText = "SELECT get_total_payed_amount()";
 
             _context.Database.OpenConnection();
 
-            int? payedAmount = (int?)command.ExecuteScalar() ?? 0;
+            var result = command.ExecuteScalar();
+            int payedAmount = 0;
+
+            if (result != null && result != DBNull.Value)
+            {
+                payedAmount = (int)result;
+            }
 
             _context.Database.CloseConnection();
 
