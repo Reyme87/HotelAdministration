@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using HotelAdministration.Commands;
+using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +11,7 @@ namespace HotelAdministration.ViewModels
     public class ManageViewModel : ViewModel
     {
         private static ManageViewModel _instance;
-        public static ManageViewModel Instance => _instance ?? new ManageViewModel();
+        public static ManageViewModel Instance => _instance ??= new ManageViewModel();
 
         #region Элементы полей
 
@@ -29,7 +25,14 @@ namespace HotelAdministration.ViewModels
             get => _floorNumber;
             set
             {
-                Set(ref _floorNumber, value);
+                if (value > 0 && value <= 4)
+                {
+                    Set(ref _floorNumber, value);
+                }
+                else
+                {
+                    Set(ref _floorNumber, 0);
+                }
             }
         }
 
@@ -38,7 +41,14 @@ namespace HotelAdministration.ViewModels
             get => _totalRooms;
             set
             {
-                Set(ref _totalRooms, value);
+                if (value > 0 && value <= 5)
+                {
+                    Set(ref _totalRooms, value);
+                }
+                else
+                {
+                    Set(ref _totalRooms, 0);
+                }
             }
         }
 
@@ -74,7 +84,14 @@ namespace HotelAdministration.ViewModels
             get => _capacity;
             set
             {
-                Set(ref _capacity, value);
+                if (value > 0 && value <= 3)
+                {
+                    Set(ref _capacity, value);
+                }
+                else
+                {
+                    Set(ref _capacity, 0);
+                }
             }
         }
 
@@ -128,7 +145,76 @@ namespace HotelAdministration.ViewModels
             get => _phoneNumber;
             set
             {
-                Set(ref _phoneNumber, value);
+                if (value != "")
+                {
+                    Set(ref _phoneNumber, value);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Info
+
+        private int _totalPayedAmount;
+        private int _totalFreeRoomsAmount;
+        private int _totalFreePlacesAmount;
+        private int _priceForOnePlace;
+
+        private int _infoRoomNumber;
+        private int _infoFloorNumber;
+
+        public int TotalPayedAmount
+        {
+            get => _totalPayedAmount;
+            set
+            {
+                Set(ref _totalPayedAmount, value);
+            }
+        }
+
+        public int TotalFreeRoomsAmount
+        {
+            get => _totalFreeRoomsAmount;
+            set
+            {
+                Set(ref _totalFreeRoomsAmount, value);
+            }
+        }
+
+        public int TotalFreePlacesAmount
+        {
+            get => _totalFreePlacesAmount;
+            set
+            {
+                Set(ref _totalFreePlacesAmount, value);
+            }
+        }
+
+        public int PriceForOnePlace
+        {
+            get => _priceForOnePlace;
+            set
+            {
+                Set(ref _priceForOnePlace, value);
+            }
+        }
+
+        public int InfoRoomNumber
+        {
+            get => _infoRoomNumber;
+            set
+            {
+                Set(ref _infoRoomNumber, value);
+            }
+        }
+
+        public int InfoFloorNumber
+        {
+            get => _infoFloorNumber;
+            set
+            {
+                Set(ref _infoFloorNumber, value);
             }
         }
 
@@ -142,8 +228,10 @@ namespace HotelAdministration.ViewModels
         private ObservableCollection<Floor> _floors;
         private ObservableCollection<Room> _rooms;
         private ObservableCollection<Employee> _employees;
+        private ObservableCollection<Client> _clients;
 
-        private List<string> days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+        private readonly List<string> _days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+        private readonly List<string> _statuses = ["Работает", "Убирает", "Отдыхает"];
 
         public ObservableCollection<Floor> Floors
         {
@@ -170,9 +258,19 @@ namespace HotelAdministration.ViewModels
             }
         }
 
+        public ObservableCollection<Client> Clients
+        {
+            get => _clients;
+            set
+            {
+                Set(ref _clients, value);
+            }
+        }
+
         private Floor _selectedFloor;
         private Room _selectedRoom;
         private Employee _selectedEmployee;
+        private Client _selectedClient;
 
         public Floor SelectedFloor
         {
@@ -201,6 +299,15 @@ namespace HotelAdministration.ViewModels
             }
         }
 
+        public Client SelectedClient
+        {
+            get => _selectedClient;
+            set
+            {
+                Set(ref _selectedClient, value);
+            }
+        }
+
         #endregion
 
         #region Команды
@@ -217,6 +324,17 @@ namespace HotelAdministration.ViewModels
 
             try
             {
+                foreach (var floorItem in Floors)
+                {
+                    if (FloorNumber == floorItem.FloorNumber)
+                    {
+                        FloorNumber = 0;
+                        TotalRooms = 0;
+                        MessageBox.Show("Этаж с таким номером уже существует.");
+                        return;
+                    }
+                }
+
                 _context.Floors.Add(floor);
                 _context.SaveChanges();
                 Floors.Add(floor);
@@ -227,7 +345,7 @@ namespace HotelAdministration.ViewModels
             catch { }
         }
 
-        public bool CanAddFloorCommandExecuted(object p) => true;
+        public bool CanAddFloorCommandExecuted(object p) => !Equals(FloorNumber, 0) && !Equals(TotalRooms, 0);
 
         #endregion
 
@@ -237,7 +355,16 @@ namespace HotelAdministration.ViewModels
 
         public void OnRemoveFloorCommandExecuted(object p)
         {
-            Floors.Remove(SelectedFloor);
+            try
+            {
+                _context.Floors.Remove(SelectedFloor);
+                _context.SaveChanges();
+                Floors.Remove(SelectedFloor);
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно удалить данные об этаже. На данном этаже работает сотрудник.");
+            }
         }
 
         public bool CanRemoveFloorCommandExecute(object p) => !Equals(SelectedFloor, null);
@@ -297,6 +424,8 @@ namespace HotelAdministration.ViewModels
 
         public void OnRemoveRoomCommandExecuted(object p)
         {
+            _context.Rooms.Remove(SelectedRoom);
+            _context.SaveChanges();
             Rooms.Remove(SelectedRoom);
         }
 
@@ -319,7 +448,7 @@ namespace HotelAdministration.ViewModels
             int count = Employees.Count + 1;
             employee.CurrentFloorId = count % Floors.Count;
             employee.CurrentFloor = Floors[employee.CurrentFloorId];
-            employee.CleaningDay = days[(count - 1) % days.Count];
+            employee.CleaningDay = _days[(count - 1) % _days.Count];
 
             try
             {
@@ -346,10 +475,25 @@ namespace HotelAdministration.ViewModels
 
         public void OnRemoveEmployeeCommandExecuted(object p)
         {
+            _context.Employees.Remove(SelectedEmployee);
+            _context.SaveChanges();
             Employees.Remove(SelectedEmployee);
         }
 
         public bool CanRemoveEmployeeCommandExecute(object p) => !Equals(SelectedEmployee, null);
+
+        #endregion
+
+        #region GetPriceCommand
+
+        public ICommand GetPriceCommand { get; }
+
+        public void OnGetPriceCommandExecuted(object p)
+        {
+            PriceForOnePlace = QueryController.GetPlacePrice(InfoFloorNumber, InfoRoomNumber);
+        }
+
+        public bool CanGetPriceCommandExecute(object p) => true;
 
         #endregion
 
@@ -371,6 +515,8 @@ namespace HotelAdministration.ViewModels
 
             RemoveEmployeeCommand = new RelayCommand(OnRemoveEmployeeCommandExecuted, CanRemoveEmployeeCommandExecute);
 
+            GetPriceCommand = new RelayCommand(OnGetPriceCommandExecuted, CanGetPriceCommandExecute);
+
             #endregion
 
             _context.Floors.Load();
@@ -381,6 +527,15 @@ namespace HotelAdministration.ViewModels
 
             _context.Employees.Load();
             Employees = _context.Employees.Local.ToObservableCollection();
+
+            _context.Clients.Load();
+            Clients = _context.Clients.Local.ToObservableCollection();
+
+            TotalPayedAmount = QueryController.GetTotalPayedAmount();
+
+            TotalFreeRoomsAmount = QueryController.GetAvailableRoomsCount();
+
+            TotalFreePlacesAmount = QueryController.GetFreePlacesCount();
         }
     }
 }
