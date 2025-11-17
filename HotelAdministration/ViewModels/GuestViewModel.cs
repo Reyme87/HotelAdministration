@@ -2,6 +2,7 @@
 using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,10 @@ namespace HotelAdministration.ViewModels
 
         #region Элементы полей
 
+        private static Visibility _visibility = Visibility.Hidden;
+
+        private int? _priceForOnePlace = 0;
+
         private string _lastName;
         private string _firstName;
         private string? _middleName;
@@ -30,6 +35,24 @@ namespace HotelAdministration.ViewModels
         private string _city;
         private DateOnly _checkInDate;
         private DateOnly _checkOutDate;
+
+        public Visibility VisibilityParam
+        {
+            get => _visibility;
+            set
+            {
+                Set(ref _visibility, value);
+            }
+        }
+
+        public int? PriceForOnePlace
+        {
+            get => _priceForOnePlace;
+            set
+            {
+                Set(ref _priceForOnePlace, value);
+            }
+        }
 
         public string LastName
         {
@@ -108,6 +131,7 @@ namespace HotelAdministration.ViewModels
         #region Коллекции элементов
 
         private HotelContext _context = new HotelContext();
+
         private ObservableCollection<Room> _rooms;
         private ObservableCollection<Room> _selectedRooms;
         private RoomPreview _selectedPreview;
@@ -232,6 +256,15 @@ namespace HotelAdministration.ViewModels
                     SelectedRooms.Add(room);
                 }
             }
+
+            if (SelectedRooms.Count == 0)
+            {
+                VisibilityParam = Visibility.Visible;
+            }
+            else
+            {
+                VisibilityParam = Visibility.Hidden;
+            }
         }
 
         public bool CanWatchRoomsCommandExecute(object p) => true;
@@ -249,6 +282,31 @@ namespace HotelAdministration.ViewModels
         }
 
         public bool CanPreBookRoomCommandExecute(object p) => true;
+
+        #endregion
+
+        #region CalculatePriceCommand
+
+        public ICommand CalculatePriceCommand { get; }
+
+        public void OnCalculatePriceCommandExecuted(object p)
+        {
+            //using var command = _context.Database.GetDbConnection().CreateCommand();
+            //command.CommandText = "SELECT get_place_price(@floor_number, @room_number)";
+            //command.Parameters.Add(new NpgsqlParameter("@floor_number", SelectedRoomBooking.FloorId));
+            //command.Parameters.Add(new NpgsqlParameter("@room_number", SelectedRoomBooking.RoomNumber));
+
+            //_context.Database.OpenConnection();
+
+            //var price = (int)command.ExecuteScalar();
+            //PriceForOnePlace = price;
+
+            //_context.Database.CloseConnection();
+
+            PriceForOnePlace = QueryController.GetPlacePrice(SelectedRoomBooking.FloorId, SelectedRoomBooking.RoomNumber);
+        }
+
+        public bool CanCalculatePriceCommandExecute(object p) => !Equals(SelectedRoomBooking, null);
 
         #endregion
 
@@ -283,7 +341,7 @@ namespace HotelAdministration.ViewModels
         }
 
         public bool CanAddClientCommandExecute(object p) => !Equals(LastName, null) && !Equals(FirstName, null) && !Equals(PhoneNumber, null) && !Equals(Email, null) &&
-                                                            !Equals(City, null) && !Equals(CheckInDate, null) && !Equals(CheckOutDate, null) && CheckInDate <= CheckOutDate && CheckInDate >= _today;
+                                                            !Equals(City, null) && !Equals(CheckInDate, null) && !Equals(CheckOutDate, null) && CheckInDate <= CheckOutDate && CheckInDate >= _today && Clients.Count < SelectedRoomBooking.Capacity;
 
         #endregion
 
@@ -308,13 +366,51 @@ namespace HotelAdministration.ViewModels
         {
             try
             {
+                List<Client> existingClients = new List<Client>();
+                _context.Clients.Load();
+                existingClients = _context.Clients.Local.ToList();
+
                 foreach (var client in Clients)
                 {
-                    client.PayedAmount = (int)Math.Round(SelectedRoomBooking.PricePerNumber / Clients.Count * 1.0, 0);
-                    client.BookedRoomId = SelectedRoomBooking.RoomId;
-                    _context.Clients.Add(client);
-                    _context.SaveChanges();
+                    using var command = _context.Database.GetDbConnection().CreateCommand();
+                    command.CommandText = "SELECT get_place_price(@floor_number, @room_number)";
+                    command.Parameters.Add(new NpgsqlParameter("@floor_number", SelectedRoomBooking.FloorId));
+                    command.Parameters.Add(new NpgsqlParameter("@room_number", SelectedRoomBooking.RoomNumber));
+
+                    _context.Database.OpenConnection();
+
+                    var price = (int)command.ExecuteScalar();
+                    if (existingClients.Any(s => s.FirstName == client.FirstName && s.LastName == client.LastName && s.MiddleName == client.MiddleName))
+                    {
+                        _context.Clients
+                            .Where(c => c.ClientId == client.ClientId)
+                            .ExecuteUpdate(s =>
+                            s.SetProperty(c => c.PayedAmount, c => c.PayedAmount + price));
+
+                        _context.Database.CloseConnection();
+                    }
+                    else
+                    {
+                        client.PayedAmount = price;
+
+                        _context.Database.CloseConnection();
+
+                        client.BookedRoomId = SelectedRoomBooking.RoomId;
+                        _context.Clients.Add(client);
+                        _context.SaveChanges();
+                    }
                 }
+
+                _context.Rooms
+                        .Where(c => c.RoomId == SelectedRoomBooking.RoomId)
+                        .ExecuteUpdate(s =>
+                        s.SetProperty(c => c.IsBooked, true)
+                        .SetProperty(c => c.IsAvailable, false)
+                        .SetProperty(c => c.FreePlaces, SelectedRoomBooking.Capacity - Clients.Count));
+
+
+                Clients.Clear();
+                SelectedRooms.Remove(SelectedRoomBooking);
             }
             catch { }
         }
@@ -336,6 +432,8 @@ namespace HotelAdministration.ViewModels
             WatchRoomsCommand = new RelayCommand(OnWatchRoomsCommandExecuted, CanWatchRoomsCommandExecute);
 
             PreBookRoomCommand = new RelayCommand(OnPreBookRoomCommandExecuted, CanPreBookRoomCommandExecute);
+
+            CalculatePriceCommand = new RelayCommand(OnCalculatePriceCommandExecuted, CanCalculatePriceCommandExecute);
 
             AddClientCommand = new RelayCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
 
