@@ -39,6 +39,15 @@ public partial class Client
     [Column("check_out_date")]
     public DateOnly CheckOutDate { get; set; }
 
+    [Column("money_to_pay")]
+    public int MoneyToPay { get; set; }
+
+    [Column("has_arrived")]
+    public bool HasArrived { get; set; }
+
+    [Column("has_checked_out")]
+    public bool HasCheckedOut { get; set; }
+
     [NotMapped]
     public virtual Room BookedRoom { get; set; } = null!;
 }
