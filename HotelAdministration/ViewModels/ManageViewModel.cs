@@ -220,6 +220,83 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region Queries
+        private Visibility _visibilityParam = Visibility.Hidden;
+        private Visibility _employeesVisibilityParam = Visibility.Hidden;
+
+
+        private Room _queryRoomType;
+        private Client _queryCity;
+
+        private Client _queryClient;
+        private string _queryDay;
+
+        private Employee _matchingEmployee;
+
+        public Visibility VisibilityParam
+        {
+            get => _visibilityParam;
+            set
+            {
+                Set(ref _visibilityParam, value);
+            }
+        }
+        public Visibility EmployeesVisibilityParam
+        {
+            get => _employeesVisibilityParam;
+            set
+            {
+                Set(ref _employeesVisibilityParam, value);
+            }
+        }
+
+        public Room QueryRoomType
+        {
+            get => _queryRoomType;
+            set
+            {
+                Set(ref _queryRoomType, value);
+            }
+        }
+
+        public Client QueryCity
+        {
+            get => _queryCity;
+            set
+            {
+                Set(ref _queryCity, value);
+            }
+        }
+
+        public Client QueryClient
+        {
+            get => _queryClient;
+            set
+            {
+                Set(ref _queryClient, value);
+            }
+        }
+
+        public string QueryDay
+        {
+            get => _queryDay;
+            set
+            {
+                Set(ref _queryDay, value);
+            }
+        }
+
+        public Employee MatchingEmployee
+        {
+            get => _matchingEmployee;
+            set
+            {
+                Set(ref _matchingEmployee, value);
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Коллекции элементов
@@ -229,6 +306,7 @@ namespace HotelAdministration.ViewModels
         private ObservableCollection<Room> _rooms;
         private ObservableCollection<Employee> _employees;
         private ObservableCollection<Client> _clients;
+        private ObservableCollection<Client> _matchingClients;
 
         private readonly List<string> _days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
         private readonly List<string> _statuses = ["Работает", "Убирает", "Отдыхает"];
@@ -264,6 +342,15 @@ namespace HotelAdministration.ViewModels
             set
             {
                 Set(ref _clients, value);
+            }
+        }
+
+        public ObservableCollection<Client> MatchingClients
+        {
+            get => _matchingClients;
+            set
+            {
+                Set(ref _matchingClients, value);
             }
         }
 
@@ -306,6 +393,11 @@ namespace HotelAdministration.ViewModels
             {
                 Set(ref _selectedClient, value);
             }
+        }
+
+        public List<string> Days
+        {
+            get => _days;
         }
 
         #endregion
@@ -497,6 +589,78 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region FindClientByCityCommand
+
+        public ICommand FindClientByCityCommand { get; }
+
+        public void OnFindClientByCityCommandExecuted(object p)
+        {
+            MatchingClients.Clear();
+            var tempList = QueryController.GetClientsByCity(QueryCity.City);
+
+            foreach (var client in tempList)
+            {
+                MatchingClients.Add(client);
+            }
+
+            CheckClientsEmptiness();
+
+            QueryCity = null;
+        }
+
+        public bool CanFindClientByCityCommandExecute(object p) => !Equals(QueryCity, null);
+
+        #endregion
+
+        #region FindClientByRoomCommand
+
+        public ICommand FindClientByRoomCommand { get; }
+
+        public void OnFindClientByRoomCommandExecuted(object p)
+        {
+            MatchingClients.Clear();
+            var tempList = QueryController.GetClientsInFixedplacedRooms(QueryRoomType.RoomType);
+
+            foreach (var client in tempList)
+            {
+                MatchingClients.Add(client);
+            }
+
+            CheckClientsEmptiness();
+
+            QueryRoomType = null;
+        }
+
+        public bool CanFindClientByRoomCommandExecute(object p) => !Equals(QueryRoomType, null);
+
+        #endregion
+
+        #region FindEmployeeByDayCommand
+
+        public ICommand FindEmployeeByDayCommand { get; }
+
+        public void OnFindEmployeeByDayCommandExecuted(object p)
+        {
+            var tempList = QueryController.GetCleanerForClient(QueryClient.LastName, QueryClient.FirstName, QueryClient.MiddleName, QueryDay);
+
+            if (tempList.Count != 0)
+            {
+                EmployeesVisibilityParam = Visibility.Hidden;
+                MatchingEmployee = tempList[0];
+            }
+            else
+            {
+                EmployeesVisibilityParam = Visibility.Visible;
+            }
+
+            QueryClient = null;
+            QueryDay = "";
+        }
+
+        public bool CanFindEmployeeByDayCommandExecute(object p) => !Equals(QueryClient, null) && !Equals(QueryDay, "");
+
+        #endregion
+
         #endregion
 
         public ManageViewModel()
@@ -517,6 +681,12 @@ namespace HotelAdministration.ViewModels
 
             GetPriceCommand = new RelayCommand(OnGetPriceCommandExecuted, CanGetPriceCommandExecute);
 
+            FindClientByCityCommand = new RelayCommand(OnFindClientByCityCommandExecuted, CanFindClientByCityCommandExecute);
+
+            FindClientByRoomCommand = new RelayCommand(OnFindClientByRoomCommandExecuted, CanFindClientByRoomCommandExecute);
+
+            FindEmployeeByDayCommand = new RelayCommand(OnFindEmployeeByDayCommandExecuted, CanFindEmployeeByDayCommandExecute);
+
             #endregion
 
             _context.Floors.Load();
@@ -536,6 +706,20 @@ namespace HotelAdministration.ViewModels
             TotalFreeRoomsAmount = QueryController.GetAvailableRoomsCount();
 
             TotalFreePlacesAmount = QueryController.GetFreePlacesCount();
+
+            MatchingClients = [];
+        }
+
+        private void CheckClientsEmptiness()
+        {
+            if (MatchingClients.Count == 0)
+            {
+                VisibilityParam = Visibility.Visible;
+            }
+            else
+            {
+                VisibilityParam = Visibility.Hidden;
+            }
         }
     }
 }
