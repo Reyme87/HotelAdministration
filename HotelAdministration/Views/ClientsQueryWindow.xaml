@@ -1,0 +1,95 @@
+﻿<Window x:Class="HotelAdministration.Views.ClientsQueryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
+        xmlns:local="clr-namespace:HotelAdministration.Views"
+        mc:Ignorable="d"
+        Title="ClientsQueryWindow" Height="800" Width="1000" FontFamily="{StaticResource MainFont}" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <ResourceDictionary/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:ManageViewModel/>
+    </Window.DataContext>
+
+    <Grid Background="{StaticResource BackColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5" 
+                Content="{StaticResource BackArrow}" FontWeight="Bold" x:Name="NavigationButton" Click="NavigationButton_Click"/>
+
+        <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="6" Fill="{StaticResource ControlsColor}"/>
+
+        <Label Content="Клиенты" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Foreground="{StaticResource ForeColor}" FontSize="36" FontWeight="Bold"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="10" 
+                  AutoGenerateColumns="False" ColumnWidth="*" FontSize="18"
+                  ItemsSource="{Binding MatchingClients}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding ClientId}" Width="0.5*"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding MiddleName}"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding PhoneNumber}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding City}"/>
+                <DataGridTextColumn Header="Комната" Binding="{Binding BookedRoom.RoomNumber}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Visibility="{Binding VisibilityParam}" HorizontalAlignment="Center">
+            <Image Source="{StaticResource SearchErrorIcon}" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Label Content="К сожалению, не удалось найти выбранных клиентов" FontSize="32" Foreground="{StaticResource ForeColor}"
+            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+        </DockPanel>
+
+        <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" CornerRadius="15" Background="{StaticResource BackColor}">
+            <DockPanel Margin="15">
+                <TextBlock Text="Клиенты, прибывшие из города" Foreground="{StaticResource ForeColor}" FontSize="28" VerticalAlignment="Center" Margin="15"/>
+                <ComboBox ItemsSource="{Binding Clients}" SelectedItem="{Binding QueryCity}" Width="150" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Foreground="{StaticResource BackColor}" Content="{Binding City}" FontSize="20"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Command="{Binding FindClientByCityCommand}" Content="Поиск" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" Margin="10 15"/>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" CornerRadius="15" Background="{StaticResource BackColor}">
+            <DockPanel Margin="15">
+                <TextBlock Text="Клиенты, проживающие в номере категории" Foreground="{StaticResource ForeColor}" FontSize="28" VerticalAlignment="Center" Margin="15"/>
+                <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding QueryRoomType}" Width="150" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Foreground="{StaticResource BackColor}" Content="{Binding RoomType}" FontSize="20"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Command="{Binding FindClientByRoomCommand}" Content="Поиск" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" Margin="10 15"/>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>
