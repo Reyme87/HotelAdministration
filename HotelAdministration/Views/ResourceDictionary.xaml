@@ -12,6 +12,9 @@
     <Brush x:Key="ControlsHoverColor">#A2563D</Brush>
     <Brush x:Key="ControlsPressColor">#572828</Brush>
 
+    <Brush x:Key="DataBackColor">#525252</Brush>
+    <Brush x:Key="DataAlternateBackColor">#303030</Brush>
+
     <Image x:Key="BackArrow" Source="/Resources/BackArrow.png" x:Shared="False" RenderOptions.BitmapScalingMode="HighQuality"/>
     <BitmapImage x:Key="FloorIcon" UriSource="/Resources/FloorIcon.png" x:Shared="False"/>
     <BitmapImage x:Key="RoomIcon" UriSource="/Resources/RoomIcon.png" x:Shared="False"/>
@@ -23,6 +26,7 @@
     <BitmapImage x:Key="FreeRoomsIcon" UriSource="/Resources/FreeRoomsIcon.png" x:Shared="False"/>
     <BitmapImage x:Key="BedIcon" UriSource="/Resources/BedIcon.png" x:Shared="False"/>
     <BitmapImage x:Key="PriceIcon" UriSource="/Resources/PriceIcon.png" x:Shared="False"/>
+    <BitmapImage x:Key="SearchErrorIcon" UriSource="/Resources/SearchErrorIcon.png" x:Shared="False"/>
 
     <BitmapImage x:Key="BackgroundImage" UriSource="/Resources/background.png" RenderOptions.BitmapScalingMode="HighQuality"/>
     <BitmapImage x:Key="IntroImage" UriSource="/Resources/astoriaHotel.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
@@ -274,5 +278,21 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="Background" Value="{StaticResource ControlsPressColor}"/>
+        <Setter Property="RowBackground" Value="{StaticResource DataBackColor}"/>
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource DataAlternateBackColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForeColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BackColor}"/>
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource BackColor}"/>
     </Style>
 </ResourceDictionary>
