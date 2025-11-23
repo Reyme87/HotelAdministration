@@ -34,6 +34,13 @@ namespace HotelAdministration.Models
                 var employees = _context.Database.SqlQueryRaw<Employee>("SELECT * FROM get_cleaner_for_client({0}, {1}, {2}, {3})",
                                                                         clientLastName, clientFirstName, clientMiddleName, dayOfWeek).ToList();
 
+                foreach (var employee in employees)
+                {
+                    _context.Entry(employee)
+                        .Reference(c => c.CurrentFloor)
+                        .Load();
+                }
+
                 return employees;
             }
             catch
@@ -49,6 +56,13 @@ namespace HotelAdministration.Models
             {
                 var clients = _context.Database.SqlQueryRaw<Client>("SELECT * FROM get_clients_by_city({0})", cityName).ToList();
 
+                foreach (var client in clients)
+                {
+                    _context.Entry(client)
+                        .Reference(c => c.BookedRoom)
+                        .Load();
+                }
+
                 return clients;
             }
             catch
@@ -63,6 +77,13 @@ namespace HotelAdministration.Models
             try
             {
                 var clients = _context.Database.SqlQueryRaw<Client>("SELECT * FROM get_clients_in_fixedplaced_rooms({0})", roomType).ToList();
+
+                foreach (var client in clients)
+                {
+                    _context.Entry(client)
+                        .Reference(c => c.BookedRoom)
+                        .Load();
+                }
 
                 return clients;
             }
