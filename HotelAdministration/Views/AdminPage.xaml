@@ -18,7 +18,7 @@
     </Page.DataContext>
     
     <Grid Background="{StaticResource BackColor}">
-        <TabControl Background="{StaticResource ControlsColor}">
+        <TabControl Background="{StaticResource ControlsColor}" TabStripPlacement="Top">
             <!--<TabItem Header="Профиль" FontSize="20">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -273,6 +273,8 @@
                         <Button x:Name="AddEmployeeButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddEmployeeButton_Click"/>
                         <Button Command="{Binding RemoveEmployeeCommand}" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
+
+                    <Button x:Name="EmployeeQueryButtonClick" Content="Запросы" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="10 20 10 10" Click="EmployeeQueryButtonClick_Click"/>
                 </Grid>
             </TabItem>
 
@@ -362,6 +364,8 @@
                         <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
                         <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
                     </DockPanel>
+
+                    <Button x:Name="QueryButtonClick" Content="Запросы" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="10 20 10 10" Click="QueryButtonClick_Click"/>
                 </Grid>
             </TabItem>
 

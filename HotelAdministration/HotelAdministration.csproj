@@ -12,17 +12,49 @@
     <None Remove="Resources\astoriaHotel.jpg" />
     <None Remove="Resources\backArrow.png" />
     <None Remove="Resources\background.png" />
+    <None Remove="Resources\BedIcon.png" />
+    <None Remove="Resources\ClientIcon.png" />
+    <None Remove="Resources\EmployeeIcon.png" />
+    <None Remove="Resources\ErrorIcon.png" />
+    <None Remove="Resources\FloorIcon.png" />
+    <None Remove="Resources\FreeRoomsIcon.png" />
+    <None Remove="Resources\InfoIcon.png" />
+    <None Remove="Resources\MoneyIcon.png" />
+    <None Remove="Resources\OnePlace.jpg" />
+    <None Remove="Resources\PriceIcon.png" />
+    <None Remove="Resources\RoomIcon.png" />
+    <None Remove="Resources\SearchErrorIcon.png" />
+    <None Remove="Resources\ThreePlaces.jpg" />
+    <None Remove="Resources\TwoPlaces.jpg" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Base\" />
-    <Folder Include="ViewModels\Base\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\astoriaHotel.jpg" />
     <Resource Include="Resources\backArrow.png" />
     <Resource Include="Resources\background.png" />
+    <Resource Include="Resources\BedIcon.png" />
+    <Resource Include="Resources\ClientIcon.png" />
+    <Resource Include="Resources\EmployeeIcon.png" />
+    <Resource Include="Resources\ErrorIcon.png" />
+    <Resource Include="Resources\FloorIcon.png" />
+    <Resource Include="Resources\FreeRoomsIcon.png" />
+    <Resource Include="Resources\InfoIcon.png" />
+    <Resource Include="Resources\MoneyIcon.png" />
+    <Resource Include="Resources\OnePlace.jpg" />
+    <Resource Include="Resources\PriceIcon.png" />
+    <Resource Include="Resources\RoomIcon.png" />
+    <Resource Include="Resources\SearchErrorIcon.png" />
+    <Resource Include="Resources\ThreePlaces.jpg" />
+    <Resource Include="Resources\TwoPlaces.jpg" />
   </ItemGroup>
 
 </Project>

@@ -42,5 +42,21 @@ namespace HotelAdministration.Views
         {
             NavigationService.Navigate(new AddEmployeePage());
         }
+
+        private void QueryButtonClick_Click(object sender, RoutedEventArgs e)
+        {
+            ClientsQueryWindow qw = new ClientsQueryWindow();
+            qw.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = qw;
+        }
+
+        private void EmployeeQueryButtonClick_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeesQueryWindow qw = new EmployeesQueryWindow();
+            qw.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = qw;
+        }
     }
 }

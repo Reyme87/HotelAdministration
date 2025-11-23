@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelAdministration.Views"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="AdminWindow" Height="700" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Frame Name="AdminFrame" NavigationUIVisibility="Hidden"/>
 
     <Window.Resources>
