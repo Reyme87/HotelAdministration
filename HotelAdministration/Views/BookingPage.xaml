@@ -42,6 +42,9 @@
 
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="6" Fill="{StaticResource ControlsColor}"/>
 
+        <!--<Label Content="Бронирование комнаты" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Foreground="{StaticResource ForeColor}" FontSize="36" FontWeight="Bold"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+        
         <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" 
                Content="Бронирование комнаты" Foreground="{StaticResource BackColor}" FontSize="36" FontWeight="Bold"
                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 15"/>

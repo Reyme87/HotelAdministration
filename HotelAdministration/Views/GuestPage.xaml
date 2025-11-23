@@ -38,6 +38,9 @@
 
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Fill="{StaticResource ControlsColor}"/>
 
+        <Label Content="Выбор комнаты" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource MainFont}" Grid.ColumnSpan="6" Foreground="{StaticResource ForeColor}" FontSize="36" FontWeight="Bold"
+               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        
         <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="15" Padding="15 0" CornerRadius="15" Background="{StaticResource ControlsPressColor}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -91,7 +94,7 @@
                     <Button Command="{Binding SwipeRightCommand}" Height="40" Width="40" HorizontalAlignment="Right" Content="&gt;" FontWeight="Bold"/>
                 </DockPanel>
 
-                <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" FontFamily="{StaticResource MainFont}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Border>
 
@@ -113,7 +116,11 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="В данный момент нет свободных номеров этого типа" FontSize="32" Foreground="{StaticResource ForeColor}"
-               HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding VisibilityParam}"/>
+        <DockPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Visibility="{Binding VisibilityParam}">
+            <Image Source="{StaticResource ErrorIcon}" Height="80" Margin="50 0 0 0" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Label Content="В данный момент нет свободных номеров этого типа" FontSize="32" Foreground="{StaticResource ForeColor}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 30 0"/>
+        </DockPanel>
+        
     </Grid>
 </Page>
