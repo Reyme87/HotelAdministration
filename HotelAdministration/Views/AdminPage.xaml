@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HotelAdministration.Views"
       xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="900"  FontFamily="{StaticResource MainFont}"
+      d:DesignHeight="750" d:DesignWidth="900"  FontFamily="{StaticResource MainFont}"
       Title="AdminPage">
 
     <Page.Resources>
@@ -91,7 +91,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Floors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedFloor}" Grid.RowSpan="4" Margin="10 10 10 60">
+                    <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Floors, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedFloor}" Grid.RowSpan="4" Margin="10" Padding="0 50">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
@@ -101,6 +101,11 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+
+                    <DockPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">
+                        <Button x:Name="AddFloorButton" Content="{StaticResource AddIcon}" Height="40" Width="80" HorizontalAlignment="Left" Margin="20 20 10 10" Click="AddFloorButton_Click"/>
+                        <Button Command="{Binding RemoveFloorCommand}" x:Name="DeleteFloorButton" Content="{StaticResource DeleteIcon}" Height="40" Width="80" HorizontalAlignment="Right" Margin="10 20 20 10"/>
+                    </DockPanel>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel DataContext="{Binding SelectedFloor}">
@@ -116,11 +121,6 @@
                             </DockPanel>
                         </StackPanel>
                     </Border>
-
-                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button x:Name="AddFloorButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddFloorButton_Click"/>
-                        <Button Command="{Binding RemoveFloorCommand}" x:Name="DeleteFloorButton" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
-                    </DockPanel>
 
                     <!--<Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="10 20 10 10"
                             Content="Запросы"/>-->
@@ -147,7 +147,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom}" Margin="10 10 10 60">
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" ItemsSource="{Binding Rooms, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedRoom}" Margin="10" Padding="0 50">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
@@ -157,6 +157,11 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+
+                    <DockPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">
+                        <Button x:Name="AddNumberButton" Content="{StaticResource AddIcon}" Height="40" Width="80" HorizontalAlignment="Left" Margin="20 20 10 10" Click="AddNumberButton_Click"/>
+                        <Button Command="{Binding RemoveRoomCommand}" Content="{StaticResource DeleteIcon}" Height="40" Width="80" HorizontalAlignment="Right" Margin="10 20 20 10"/>
+                    </DockPanel>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel DataContext="{Binding SelectedRoom}">
@@ -197,10 +202,6 @@
                         </StackPanel>
                     </Border>
 
-                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button x:Name="AddNumberButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddNumberButton_Click"/>
-                        <Button Command="{Binding RemoveRoomCommand}" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
-                    </DockPanel>
                 </Grid>
             </TabItem>
 
@@ -224,7 +225,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" ItemsSource="{Binding Employees, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedEmployee}" Margin="10 10 10 60">
+                    <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" ItemsSource="{Binding Employees, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" SelectedItem="{Binding SelectedEmployee}" Margin="10" Padding="0 50">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel Margin="10 5">
@@ -233,6 +234,11 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+
+                    <DockPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">
+                        <Button x:Name="AddEmployeeButton" Content="{StaticResource AddIcon}" Height="40" Width="80" HorizontalAlignment="Left" Margin="20 20 10 10" Click="AddEmployeeButton_Click"/>
+                        <Button Command="{Binding RemoveEmployeeCommand}" Content="{StaticResource DeleteIcon}" Height="40" Width="80" HorizontalAlignment="Right" Margin="10 20 20 10"/>
+                    </DockPanel>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
                         <StackPanel DataContext="{Binding SelectedEmployee}">
@@ -263,16 +269,12 @@
                                 <Label Content="{Binding CurrentFloor.FloorNumber}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
-                            <Label Content="День уборки: " FontSize="28" FontWeight="Bold"/>
-                            <Label Content="{Binding CleaningDay}" FontSize="28"/>
+                                <Label Content="День уборки: " FontSize="28" FontWeight="Bold"/>
+                                <Label Content="{Binding CleaningDay}" FontSize="28"/>
                             </DockPanel>
 
                         </StackPanel>
                     </Border>
-                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button x:Name="AddEmployeeButton" Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10" Click="AddEmployeeButton_Click"/>
-                        <Button Command="{Binding RemoveEmployeeCommand}" Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
-                    </DockPanel>
 
                     <Button x:Name="EmployeeQueryButtonClick" Content="Запросы" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="10 20 10 10" Click="EmployeeQueryButtonClick_Click"/>
                 </Grid>
@@ -298,7 +300,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10 10 10 60">
+                    <ListBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10" Padding="0 50">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Foreground="{StaticResource ForeColor}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis" Margin="10">
@@ -313,8 +315,12 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
+                    <DockPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">
+                        <Button Content="{StaticResource DeleteIcon}" Height="40" Width="80" HorizontalAlignment="Right" Margin="10 20 20 10"/>
+                    </DockPanel>
+
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">
-                        <StackPanel DataContext="{Binding SelectedClient}">
+                        <StackPanel DataContext="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Клиент"
                                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="5 5 5 0" FontSize="36" FontWeight="Bold"/>
                             <DockPanel Margin="5 0 5 0">
@@ -347,25 +353,37 @@
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Прибытие: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="{Binding ArrivalDate}" FontSize="28"/>
+                                <TextBlock Text="{Binding ArrivalDate, StringFormat={}{0:dd.MM.yyyy}}" VerticalAlignment="Center" Foreground="{StaticResource BackColor}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Выезд: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="{Binding CheckOutDate}" FontSize="28"/>
+                                <TextBlock Text="{Binding CheckOutDate, StringFormat={}{0:dd.MM.yyyy}}" VerticalAlignment="Center" Foreground="{StaticResource BackColor}" FontSize="28"/>
                             </DockPanel>
                             <DockPanel Margin="5 5 5 0">
                                 <Label Content="Внесённая сумма: " FontSize="28" FontWeight="Bold"/>
-                                <Label Content="{Binding PayedAmount}" FontSize="28"/>
+                                <Label Content="{Binding PayedAmount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" FontSize="28"/>
+                            </DockPanel>
+                            <DockPanel Margin="5 5 5 0">
+                                <Label Content="Прибыл/Выехал: " FontSize="28" FontWeight="Bold"/>
+                                <!--<Label Content="{Binding PayedAmount}" FontSize="28"/>-->
+                                <TextBlock FontSize="28" Foreground="{StaticResource BackColor}" VerticalAlignment="Center">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}/{1}">
+                                            <Binding Path="HasArrived" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
+                                            <Binding Path="HasCheckedOut" UpdateSourceTrigger="PropertyChanged" Mode="OneWay"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </DockPanel>
                         </StackPanel>
                     </Border>
 
-                    <DockPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom">
-                        <Button Content="Добавить" Width="150" HorizontalAlignment="Left" Margin="10 20 0 10"/>
-                        <Button Content="Удалить" Width="150" HorizontalAlignment="Right" Margin="0 20 10 10"/>
+                    <DockPanel Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2">
+                        <Button Command="{Binding SetClientAsArrivedCommand}" Content="Прибыл" VerticalAlignment="Bottom" Margin="10 20 5 10"/>
+                        <Button Command="{Binding SetClientAsCheckedOutCommand}" Content="Выехал" VerticalAlignment="Bottom" Margin="5 20 5 10"/>
+                        <Button x:Name="QueryButtonClick" Content="Запросы" VerticalAlignment="Bottom" Margin="5 20 10 10" Click="QueryButtonClick_Click"/>
                     </DockPanel>
-
-                    <Button x:Name="QueryButtonClick" Content="Запросы" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="10 20 10 10" Click="QueryButtonClick_Click"/>
+                    
                 </Grid>
             </TabItem>
 
