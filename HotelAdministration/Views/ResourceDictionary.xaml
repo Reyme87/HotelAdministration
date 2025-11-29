@@ -16,6 +16,8 @@
     <Brush x:Key="DataAlternateBackColor">#303030</Brush>
 
     <Image x:Key="BackArrow" Source="/Resources/BackArrow.png" x:Shared="False" RenderOptions.BitmapScalingMode="HighQuality"/>
+    <Image x:Key="AddIcon" Source="/Resources/AddIcon.png" x:Shared="False" RenderOptions.BitmapScalingMode="HighQuality"/>
+    <Image x:Key="DeleteIcon" Source="/Resources/DeleteIcon.png" x:Shared="False" RenderOptions.BitmapScalingMode="HighQuality"/>
     <BitmapImage x:Key="FloorIcon" UriSource="/Resources/FloorIcon.png" x:Shared="False"/>
     <BitmapImage x:Key="RoomIcon" UriSource="/Resources/RoomIcon.png" x:Shared="False"/>
     <BitmapImage x:Key="EmployeeIcon" UriSource="/Resources/EmployeeIcon.png" x:Shared="False"/>
