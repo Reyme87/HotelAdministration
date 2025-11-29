@@ -291,18 +291,6 @@ namespace HotelAdministration.ViewModels
 
         public void OnCalculatePriceCommandExecuted(object p)
         {
-            //using var command = _context.Database.GetDbConnection().CreateCommand();
-            //command.CommandText = "SELECT get_place_price(@floor_number, @room_number)";
-            //command.Parameters.Add(new NpgsqlParameter("@floor_number", SelectedRoomBooking.FloorId));
-            //command.Parameters.Add(new NpgsqlParameter("@room_number", SelectedRoomBooking.RoomNumber));
-
-            //_context.Database.OpenConnection();
-
-            //var price = (int)command.ExecuteScalar();
-            //PriceForOnePlace = price;
-
-            //_context.Database.CloseConnection();
-
             PriceForOnePlace = QueryController.GetPlacePrice(SelectedRoomBooking.FloorId, SelectedRoomBooking.RoomNumber);
         }
 
@@ -385,19 +373,18 @@ namespace HotelAdministration.ViewModels
                         _context.Clients
                             .Where(c => c.ClientId == client.ClientId)
                             .ExecuteUpdate(s =>
-                            s.SetProperty(c => c.PayedAmount, c => c.PayedAmount + price));
+                            s.SetProperty(c => c.MoneyToPay, price));
 
                         _context.Database.CloseConnection();
                     }
                     else
                     {
-                        client.PayedAmount = price;
+                        client.MoneyToPay = price;
 
                         _context.Database.CloseConnection();
 
                         client.BookedRoomId = SelectedRoomBooking.RoomId;
                         _context.Clients.Add(client);
-                        _context.SaveChanges();
                     }
                 }
 
@@ -408,9 +395,15 @@ namespace HotelAdministration.ViewModels
                         .SetProperty(c => c.IsAvailable, false)
                         .SetProperty(c => c.FreePlaces, SelectedRoomBooking.Capacity - Clients.Count));
 
+                _context.SaveChanges();
 
                 Clients.Clear();
                 SelectedRooms.Remove(SelectedRoomBooking);
+                SelectedRooms.Clear();
+
+                Rooms.Clear();
+                _context.Rooms.Load();
+                Rooms = _context.Rooms.Local.ToObservableCollection();
             }
             catch { }
         }
