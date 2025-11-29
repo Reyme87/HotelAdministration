@@ -1,10 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
-using HotelAdministration.Commands;
+﻿using HotelAdministration.Commands;
 using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
 
 namespace HotelAdministration.ViewModels
 {
@@ -145,10 +147,7 @@ namespace HotelAdministration.ViewModels
             get => _phoneNumber;
             set
             {
-                if (value != "")
-                {
-                    Set(ref _phoneNumber, value);
-                }
+                Set(ref _phoneNumber, value);
             }
         }
 
@@ -310,6 +309,10 @@ namespace HotelAdministration.ViewModels
 
         private readonly List<string> _days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
         private readonly List<string> _statuses = ["Работает", "Убирает", "Отдыхает"];
+
+        private static DateTime _currentDateTime;
+        private static DateOnly _today;
+        private static CultureInfo _culture = new CultureInfo("ru-RU");
 
         public ObservableCollection<Floor> Floors
         {
@@ -476,7 +479,7 @@ namespace HotelAdministration.ViewModels
 
             room.Capacity = Capacity;
             room.PricePerNumber = Price;
-            switch(Capacity)
+            switch (Capacity)
             {
                 case 1:
                     room.RoomType = "Одноместный";
@@ -534,7 +537,7 @@ namespace HotelAdministration.ViewModels
             Employee employee = new Employee();
             employee.LastName = LastName;
             employee.FirstName = FirstName;
-            employee.MiddleName = MiddleName == null ? null : MiddleName;
+            employee.MiddleName ??= MiddleName;
             employee.PhoneNumber = PhoneNumber;
 
             int count = Employees.Count + 1;
@@ -542,11 +545,19 @@ namespace HotelAdministration.ViewModels
             employee.CurrentFloor = Floors[employee.CurrentFloorId];
             employee.CleaningDay = _days[(count - 1) % _days.Count];
 
+            CheckCleaningState(ref employee);
+
+            if (Employees.Any(e => e.PhoneNumber == PhoneNumber))
+            {
+                MessageBox.Show("Сотрудник с таким номером телефона уже существует!");
+                return;
+            }
+
             try
             {
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
-                Employees.Add(employee);
+                //Employees.Add(employee);
 
                 LastName = "";
                 FirstName = "";
@@ -554,10 +565,12 @@ namespace HotelAdministration.ViewModels
                 PhoneNumber = "";
             }
             catch { }
-            
+
         }
 
-        public bool CanAddEmployeeCommandExecute(object p) => true;
+        public bool CanAddEmployeeCommandExecute(object p) => !Equals(LastName, "")
+                                                           && !Equals(FirstName, "")
+                                                           && !Equals(PhoneNumber, "");
 
         #endregion
 
@@ -661,6 +674,70 @@ namespace HotelAdministration.ViewModels
 
         #endregion
 
+        #region SetClientAsArrivedCommand
+
+        public ICommand SetClientAsArrivedCommand { get; }
+
+        public void OnSetClientAsArrivedCommandExecuted(object p)
+        {
+            SelectedClient.HasArrived = true;
+            SelectedClient.PayedAmount += SelectedClient.MoneyToPay;
+            SelectedClient.MoneyToPay = 0;
+
+            _context.Clients.Where(c => c.ClientId == SelectedClient.ClientId)
+                            .ExecuteUpdate(s =>
+                            s.SetProperty(c => c.HasArrived, SelectedClient.HasArrived)
+                             .SetProperty(c => c.PayedAmount, SelectedClient.PayedAmount)
+                             .SetProperty(c => c.MoneyToPay, SelectedClient.MoneyToPay));
+        }
+
+        public bool CanSetClientAsArrivedCommandExecute(object p) => !Equals(SelectedClient, null) && !Equals(SelectedClient.HasArrived, true) && SelectedClient.ArrivalDate <= _today;
+
+        #endregion
+
+        #region SetClientAsCheckedOutCommand
+
+        public ICommand SetClientAsCheckedOutCommand { get; }
+
+        public void OnSetClientAsCheckedOutCommandExecuted(object p)
+        {
+            SelectedClient.HasCheckedOut = true;
+
+            DateOnly checkOutDate = SelectedClient.CheckOutDate.CompareTo(_today) <= 0 ? SelectedClient.CheckOutDate : _today;
+
+            TimeSpan diff = checkOutDate.ToDateTime(TimeOnly.MinValue) - SelectedClient.ArrivalDate.ToDateTime(TimeOnly.MinValue);
+            int days = diff.Days;
+
+            int moneyToPay = days * QueryController.GetPlacePrice(SelectedClient.BookedRoom.Floor.FloorNumber, SelectedClient.BookedRoom.RoomNumber);
+
+            SelectedClient.PayedAmount += moneyToPay;
+
+            _context.Clients.Where(c => c.ClientId == SelectedClient.ClientId)
+                            .ExecuteUpdate(s =>
+                            s.SetProperty(c => c.HasCheckedOut, SelectedClient.HasCheckedOut)
+                             .SetProperty(c => c.PayedAmount, SelectedClient.PayedAmount));
+
+            _context.Rooms.Where(c => c.RoomId == SelectedClient.BookedRoomId)
+                          .ExecuteUpdate(s =>
+                          s.SetProperty(c => c.IsAvailable, true)
+                           .SetProperty(c => c.IsBooked, false)
+                           .SetProperty(c => c.FreePlaces, c => c.Capacity));
+
+            _context.SaveChanges();
+
+            TotalPayedAmount = QueryController.GetTotalPayedAmount();
+
+            TotalFreeRoomsAmount = QueryController.GetAvailableRoomsCount();
+
+            TotalFreePlacesAmount = QueryController.GetFreePlacesCount();
+        }
+
+        public bool CanSetClientAsCheckedOutCommandExecute(object p) => !Equals(SelectedClient, null)
+                                                                     && !Equals(SelectedClient.HasCheckedOut, true)
+                                                                     && Equals(SelectedClient.HasArrived, true);
+
+        #endregion
+
         #endregion
 
         public ManageViewModel()
@@ -687,6 +764,10 @@ namespace HotelAdministration.ViewModels
 
             FindEmployeeByDayCommand = new RelayCommand(OnFindEmployeeByDayCommandExecuted, CanFindEmployeeByDayCommandExecute);
 
+            SetClientAsArrivedCommand = new RelayCommand(OnSetClientAsArrivedCommandExecuted, CanSetClientAsArrivedCommandExecute);
+
+            SetClientAsCheckedOutCommand = new RelayCommand(OnSetClientAsCheckedOutCommandExecuted, CanSetClientAsCheckedOutCommandExecute);
+
             #endregion
 
             _context.Floors.Load();
@@ -708,6 +789,11 @@ namespace HotelAdministration.ViewModels
             TotalFreePlacesAmount = QueryController.GetFreePlacesCount();
 
             MatchingClients = [];
+
+            _currentDateTime = DateTime.Now;
+            _today = DateOnly.FromDateTime(_currentDateTime);
+
+            CheckEmployeesStatuses();
         }
 
         private void CheckClientsEmptiness()
@@ -719,6 +805,47 @@ namespace HotelAdministration.ViewModels
             else
             {
                 VisibilityParam = Visibility.Hidden;
+            }
+        }
+
+        private bool CheckCleaningState(ref Employee employee)
+        {
+            string russianDay = _culture.DateTimeFormat.GetDayName(_today.DayOfWeek);
+            Console.WriteLine(russianDay);
+
+            if (Equals(russianDay, employee.CleaningDay.ToLower()))
+            {
+                if (employee.Status != _statuses[1])
+                {
+                    employee.Status = _statuses[1];
+                    return true;
+                }
+            }
+            else
+            {
+                if (employee.Status == _statuses[1])
+                {
+                    employee.Status = _statuses[2];
+                    return true;
+                }
+            }
+
+                return false;
+        }
+
+        private void CheckEmployeesStatuses()
+        {
+            for (int i = 0; i < Employees.Count; i++)
+            {
+                var employee = Employees[i];
+                if (CheckCleaningState(ref employee))
+                {
+                    Employees[i] = employee;
+                    _context.Employees.Where(e => e.EmployeeId == Employees[i].EmployeeId)
+                                      .ExecuteUpdate(s =>
+                                      s.SetProperty(e => e.Status, Employees[i].Status));
+                }
+                
             }
         }
     }
