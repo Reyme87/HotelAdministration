@@ -31,7 +31,7 @@ namespace HotelAdministration.Views
 
         private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            NavigationService.Navigate(new GuestPage());
         }
     }
 }
