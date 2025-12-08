@@ -9,14 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\AddIcon.png" />
     <None Remove="Resources\astoriaHotel.jpg" />
     <None Remove="Resources\backArrow.png" />
     <None Remove="Resources\background.png" />
     <None Remove="Resources\BedIcon.png" />
     <None Remove="Resources\ClientIcon.png" />
+    <None Remove="Resources\DeleteIcon.png" />
     <None Remove="Resources\EmployeeIcon.png" />
     <None Remove="Resources\ErrorIcon.png" />
     <None Remove="Resources\FloorIcon.png" />
+    <None Remove="Resources\forwardArrow.png" />
     <None Remove="Resources\FreeRoomsIcon.png" />
     <None Remove="Resources\InfoIcon.png" />
     <None Remove="Resources\MoneyIcon.png" />
@@ -38,14 +41,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\AddIcon.png" />
     <Resource Include="Resources\astoriaHotel.jpg" />
     <Resource Include="Resources\backArrow.png" />
     <Resource Include="Resources\background.png" />
     <Resource Include="Resources\BedIcon.png" />
     <Resource Include="Resources\ClientIcon.png" />
+    <Resource Include="Resources\DeleteIcon.png" />
     <Resource Include="Resources\EmployeeIcon.png" />
     <Resource Include="Resources\ErrorIcon.png" />
     <Resource Include="Resources\FloorIcon.png" />
+    <Resource Include="Resources\forwardArrow.png" />
     <Resource Include="Resources\FreeRoomsIcon.png" />
     <Resource Include="Resources\InfoIcon.png" />
     <Resource Include="Resources\MoneyIcon.png" />

@@ -815,7 +815,7 @@ namespace HotelAdministration.ViewModels
 
             if (Equals(russianDay, employee.CleaningDay.ToLower()))
             {
-                if (employee.Status != _statuses[1])
+                if (!Equals(employee.Status, _statuses[1]))
                 {
                     employee.Status = _statuses[1];
                     return true;
@@ -823,14 +823,19 @@ namespace HotelAdministration.ViewModels
             }
             else
             {
-                if (employee.Status == _statuses[1])
+                if (Equals(employee.Status, _statuses[1]))
                 {
                     employee.Status = _statuses[2];
                     return true;
                 }
+                else if (Equals(employee.Status, _statuses[2]))
+                {
+                    employee.Status = _statuses[0];
+                    return true;
+                }
             }
 
-                return false;
+            return false;
         }
 
         private void CheckEmployeesStatuses()
@@ -845,7 +850,7 @@ namespace HotelAdministration.ViewModels
                                       .ExecuteUpdate(s =>
                                       s.SetProperty(e => e.Status, Employees[i].Status));
                 }
-                
+
             }
         }
     }
