@@ -132,7 +132,7 @@
                     </DockPanel>
                 </ItemsControl>
             </ScrollViewer>
-            <Button Command="{Binding AddClientCommand}" Grid.Row="1" Grid.Column="3" Content="+" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30 15"/>
+            <Button Command="{Binding AddClientCommand}" Grid.Row="1" Grid.Column="3" Content="{StaticResource AddIcon}" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30 15"/>
         </Grid>
 
         <Grid Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2"
@@ -168,7 +168,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
 
-            <Button Command="{Binding RemoveClientCommand}" Grid.Row="1" Grid.Column="3" Content="-" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15"/>
+            <Button Command="{Binding RemoveClientCommand}" Grid.Row="1" Grid.Column="3" Content="{StaticResource DeleteIcon}" FontSize="24" FontWeight="Bold" Height="40" Width="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15"/>
         </Grid>
 
         <Button Command="{Binding BookRoomCommand}" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Content="Забронировать" FontWeight="Bold" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>

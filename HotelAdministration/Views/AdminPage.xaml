@@ -416,7 +416,7 @@
                         <DockPanel Margin="10">
                             <Image Source="{StaticResource MoneyIcon}" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <StackPanel>
-                                <Label Content="Общая выплаченная клиентами сумма" Foreground="{StaticResource BackColor}" FontSize="32" Margin="15"/>
+                                <Label Content="Общая выплаченная клиентами сумма" Foreground="{StaticResource BackColor}" FontSize="32" Margin="15 15 5 15"/>
                                 <TextBlock Text="{Binding TotalPayedAmount, StringFormat={}{0} руб., Mode=OneWay}" Foreground="{StaticResource BackColor}" FontSize="40"  FontWeight="Bold" Margin="15 5"/>
                             </StackPanel>
                         </DockPanel>
@@ -427,7 +427,7 @@
                         <DockPanel Margin="15">
                             <Image Source="{StaticResource FreeRoomsIcon}" Height="100" RenderOptions.BitmapScalingMode="HighQuality"/>
                             <StackPanel>
-                                <Label Content="Свободных номеров" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="10 20 5 5"/>
+                                <Label Content="Свободных комнат" Foreground="{StaticResource ForeColor}" FontSize="28" Margin="5 20 0 5"/>
                                 <TextBlock Text="{Binding TotalFreeRoomsAmount, StringFormat={}{0}, Mode=OneWay}" Foreground="{StaticResource ForeColor}" FontSize="36"  FontWeight="Bold" Margin="15 5"/>
                             </StackPanel>
                         </DockPanel>

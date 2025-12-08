@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:HotelAdministration.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="600" FontFamily="{StaticResource MainFont}"
+      d:DesignHeight="600" d:DesignWidth="600" FontFamily="Britannic Bold"
       Title="WelcomePage">
 
     <Page.Resources>

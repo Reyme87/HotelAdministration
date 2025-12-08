@@ -38,7 +38,7 @@
 
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Fill="{StaticResource ControlsColor}"/>
 
-        <Label Content="Выбор комнаты" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource MainFont}" Grid.ColumnSpan="6" Foreground="{StaticResource ForeColor}" FontSize="36" FontWeight="Bold"
+        <Label Content="Выбор комнаты" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource AdditionalFont}" Grid.ColumnSpan="6" Foreground="{StaticResource ForeColor}" FontSize="36" FontWeight="Bold"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="15" Padding="15 0" CornerRadius="15" Background="{StaticResource ControlsPressColor}">
@@ -90,8 +90,8 @@
                 </Grid>
 
                 <DockPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-                    <Button Command="{Binding SwipeLeftCommand}" Height="40" Width="40" HorizontalAlignment="Left" Content="&lt;" FontWeight="Bold"/>
-                    <Button Command="{Binding SwipeRightCommand}" Height="40" Width="40" HorizontalAlignment="Right" Content="&gt;" FontWeight="Bold"/>
+                    <Button Command="{Binding SwipeLeftCommand}" Height="40" Width="40" HorizontalAlignment="Left" Content="{StaticResource BackArrow}"/>
+                    <Button Command="{Binding SwipeRightCommand}" Height="40" Width="40" HorizontalAlignment="Right" Content="{StaticResource ForwardArrow}"/>
                 </DockPanel>
 
                 <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" FontFamily="{StaticResource MainFont}" VerticalAlignment="Center" HorizontalAlignment="Center"/>

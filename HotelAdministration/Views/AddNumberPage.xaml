@@ -43,7 +43,7 @@
 
         <TextBox Text="{Binding RoomNumber}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
          VerticalAlignment="Center" Height="35" Margin="5"/>
-        <ComboBox ItemsSource="{Binding Floors}" SelectedItem="{Binding SelectedFloor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
+        <ComboBox ItemsSource="{Binding Floors}" SelectedItem="{Binding SelectedFloor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{DynamicResource ComboBoxStyle1}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
          VerticalAlignment="Center" Height="35" Margin="5">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
