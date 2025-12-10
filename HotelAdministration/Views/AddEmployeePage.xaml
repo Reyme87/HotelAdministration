@@ -6,21 +6,21 @@
       xmlns:local="clr-namespace:HotelAdministration.Views"
       xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800" FontFamily="{StaticResource MainFont}"
+      d:DesignHeight="750" d:DesignWidth="900" FontFamily="{StaticResource MainFont}"
       Title="AddEmployeePage">
 
     <Page.DataContext>
         <vm:ManageViewModel/>
     </Page.DataContext>
 
-    <Grid Background="{StaticResource ControlsColor}">
+    <Grid Background="{StaticResource BackColor}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -30,25 +30,35 @@
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="1" Grid.ColumnSpan="3" Content="Добавление данных о сотруднике" FontSize="28" FontWeight="Bold"
-               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="1" Content="Фамилия" FontSize="24" FontWeight="Bold"
-               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="2" Content="Имя" FontSize="24" FontWeight="Bold"
-               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="3" Content="Отчество" FontSize="24" FontWeight="Bold"
-               VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Label Grid.Column="1" Grid.Row="4" Content="Телефон" FontSize="24" FontWeight="Bold"
+        <Label Grid.Column="1" Grid.ColumnSpan="3" Content="Добавление данных о сотруднике" FontSize="28" FontWeight="Bold" Foreground="{StaticResource ForeColor}"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-        <TextBox Text="{Binding LastName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
-                 VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Text="{Binding FirstName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
-                 VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Text="{Binding MiddleName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" FontSize="22" 
-                 VerticalAlignment="Center" Height="35" Margin="5"/>
-        <TextBox Text="{Binding PhoneNumber}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" FontSize="22" 
-                 VerticalAlignment="Center" Height="35" Margin="5"/>
+        <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="5" Source="{StaticResource BackgroundImage}" Stretch="Fill" />
+        
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4" VerticalAlignment="Center" Margin="15">
+            <Label Grid.Column="1" Grid.Row="1" Content="Фамилия" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BackColor}"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 15 10 5"/>
+            <TextBox Text="{Binding LastName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" FontSize="22"
+                     VerticalAlignment="Center" Height="35" Margin="5"/>
+
+            <Label Grid.Column="1" Grid.Row="2" Content="Имя" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BackColor}"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 15 10 5"/>
+            <TextBox Text="{Binding FirstName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" FontSize="22" 
+                     VerticalAlignment="Center" Height="35" Margin="5"/>
+
+            <Label Grid.Column="1" Grid.Row="3" Content="Отчество" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BackColor}"
+               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 15 10 5"/>
+            <TextBox Text="{Binding MiddleName}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="3" FontSize="22" 
+                     VerticalAlignment="Center" Height="35" Margin="5"/>
+
+            <Label Grid.Column="1" Grid.Row="4" Content="Телефон" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BackColor}"
+               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 15 10 5"/>
+            <TextBox Text="{Binding PhoneNumber}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" FontSize="22" 
+                     VerticalAlignment="Center" Height="35" Margin="5"/>
+        </StackPanel>
+        
+
+
 
         <Button Command="{Binding AddEmployeeCommand}" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="6" Content="Добавить" 
             Width="160" VerticalAlignment="Bottom" Margin="0 25"/>

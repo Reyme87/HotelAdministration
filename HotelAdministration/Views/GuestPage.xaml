@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:HotelAdministration.Views"
       xmlns:vm="clr-namespace:HotelAdministration.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="1000"
+      d:DesignHeight="800" d:DesignWidth="1000" FontFamily="{StaticResource MainFont}"
       Title="GuestPage">
 
     <Page.Resources>
@@ -38,7 +38,7 @@
 
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="4" Fill="{StaticResource ControlsColor}"/>
 
-        <Label Content="Выбор комнаты" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource AdditionalFont}" Grid.ColumnSpan="6" Foreground="{StaticResource ForeColor}" FontSize="36" FontWeight="Bold"
+        <Label Content="Выбор комнаты" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Foreground="{StaticResource ForeColor}" FontSize="34" FontWeight="Bold"
                VerticalAlignment="Center" HorizontalAlignment="Center"/>
         
         <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="4" Margin="15" Padding="15 0" CornerRadius="15" Background="{StaticResource ControlsPressColor}">
@@ -67,7 +67,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" CornerRadius="15" Margin="50 10" ClipToBounds="True">
+                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3" CornerRadius="15" ClipToBounds="True">
                         <Border.Background>
                             <ImageBrush ImageSource="{Binding PicSource}" Stretch="UniformToFill"/>
                         </Border.Background>
@@ -89,13 +89,22 @@
                     </StackPanel>
                 </Grid>
 
-                <DockPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                <!--<DockPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                     <Button Command="{Binding SwipeLeftCommand}" Height="40" Width="40" HorizontalAlignment="Left" Content="{StaticResource BackArrow}"/>
                     <Button Command="{Binding SwipeRightCommand}" Height="40" Width="40" HorizontalAlignment="Right" Content="{StaticResource ForwardArrow}"/>
                 </DockPanel>
 
-                <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" FontFamily="{StaticResource MainFont}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" FontFamily="{StaticResource MainFont}" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+
             </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" CornerRadius="30" VerticalAlignment="Center" Height="60" Width="500" Background="{StaticResource BackColor}" Margin="10 10 10 60">
+            <DockPanel Margin="15 0">
+                <Button Command="{Binding SwipeLeftCommand}" Height="40" Width="40" HorizontalAlignment="Left" Content="{StaticResource BackArrow}"/>
+                <Button Command="{Binding WatchRoomsCommand}" Grid.Row="2" Grid.Column="1" Content="Посмотреть" FontFamily="{StaticResource MainFont}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="105 0"/>
+                <Button Command="{Binding SwipeRightCommand}" Height="40" Width="40" HorizontalAlignment="Right" Content="{StaticResource ForwardArrow}"/>
+            </DockPanel>
         </Border>
 
         <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Номера в категории:" FontSize="24" FontWeight="Bold" Foreground="{StaticResource BackColor}"

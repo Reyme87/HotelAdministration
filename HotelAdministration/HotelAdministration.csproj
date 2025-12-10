@@ -29,6 +29,7 @@
     <None Remove="Resources\SearchErrorIcon.png" />
     <None Remove="Resources\ThreePlaces.jpg" />
     <None Remove="Resources\TwoPlaces.jpg" />
+    <None Remove="Resources\WideBackground.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,6 +62,7 @@
     <Resource Include="Resources\SearchErrorIcon.png" />
     <Resource Include="Resources\ThreePlaces.jpg" />
     <Resource Include="Resources\TwoPlaces.jpg" />
+    <Resource Include="Resources\WideBackground.png" />
   </ItemGroup>
 
 </Project>
