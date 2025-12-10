@@ -2,6 +2,7 @@
 using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -810,10 +811,10 @@ namespace HotelAdministration.ViewModels
 
         private bool CheckCleaningState(ref Employee employee)
         {
-            string russianDay = _culture.DateTimeFormat.GetDayName(_today.DayOfWeek);
-            Console.WriteLine(russianDay);
+            string russianCurrentDay = _culture.DateTimeFormat.GetDayName(_today.DayOfWeek);
+            Console.WriteLine(russianCurrentDay);
 
-            if (Equals(russianDay, employee.CleaningDay.ToLower()))
+            if (Equals(russianCurrentDay, employee.CleaningDay.ToLower()))
             {
                 if (!Equals(employee.Status, _statuses[1]))
                 {
@@ -823,14 +824,42 @@ namespace HotelAdministration.ViewModels
             }
             else
             {
+                int currentDayIndex = 0;
+                for (int i = 0; i < Days.Count; i++)
+                {
+                    if (Equals(Days[i].ToLower(), russianCurrentDay))
+                    {
+                        currentDayIndex = i;
+                    }
+                }
+
+                int dayBeforeYesterdayIndex = 0;
+
+                if (currentDayIndex == 0)
+                {
+                    dayBeforeYesterdayIndex = Days.Count - 2;
+                }
+                else if (currentDayIndex == 1)
+                {
+                    dayBeforeYesterdayIndex = Days.Count - 1;
+                }
+                else
+                {
+                    dayBeforeYesterdayIndex = currentDayIndex - 2;
+                }
+
                 if (Equals(employee.Status, _statuses[1]))
                 {
                     employee.Status = _statuses[2];
                     return true;
                 }
-                else if (Equals(employee.Status, _statuses[2]))
+                if (Equals(employee.Status, _statuses[2]) && Equals(employee.CleaningDay.ToLower(), Days[dayBeforeYesterdayIndex].ToLower()))
                 {
+                    (string day, int floor) = FindNewCleaningDayAndFloor(employee.CurrentFloorId);
                     employee.Status = _statuses[0];
+                    employee.CleaningDay = day;
+                    employee.CurrentFloorId = floor;
+
                     return true;
                 }
             }
@@ -848,10 +877,46 @@ namespace HotelAdministration.ViewModels
                     Employees[i] = employee;
                     _context.Employees.Where(e => e.EmployeeId == Employees[i].EmployeeId)
                                       .ExecuteUpdate(s =>
-                                      s.SetProperty(e => e.Status, Employees[i].Status));
+                                      s.SetProperty(e => e.Status, Employees[i].Status)
+                                       .SetProperty(e => e.CurrentFloorId, Employees[i].CurrentFloorId)
+                                       .SetProperty(e => e.CleaningDay, Employees[i].CleaningDay));
                 }
 
             }
+        }
+
+        private (string?, int) FindNewCleaningDayAndFloor(int currentFloor)
+        {
+            List<string> cleaningDays = new List<string>();
+            List<int> floors = new List<int>();
+
+            for (int i = 0; i < Employees.Count; i++)
+            {
+                cleaningDays.Add(Employees[i].CleaningDay.ToLower());
+                floors.Add(Employees[i].CurrentFloorId);
+            }
+
+            string? day = null;
+
+            for (int i = 0; i < Days.Count; i++)
+            {
+                if (!cleaningDays.Contains(Days[i].ToLower()))
+                {
+                    day = Days[i];
+                }
+            }
+
+            int floor = currentFloor;
+
+            for (int i = 0; i < Floors.Count; i++)
+            {
+                if (!floors.Contains(Floors[i].FloorId))
+                {
+                    floor = Floors[i].FloorId;
+                }
+            }
+
+            return (day, floor);
         }
     }
 }
