@@ -36,6 +36,7 @@
     <BitmapImage x:Key="BackgroundImage" UriSource="/Resources/background.png" RenderOptions.BitmapScalingMode="HighQuality"/>
     <BitmapImage x:Key="WideBackgroundImage" UriSource="/Resources/WideBackground.png" RenderOptions.BitmapScalingMode="HighQuality"/>
     <BitmapImage x:Key="IntroImage" UriSource="/Resources/astoriaHotel.jpg" RenderOptions.BitmapScalingMode="HighQuality"/>
+    <BitmapImage x:Key="Logo" UriSource="/Resources/Logo.png" RenderOptions.BitmapScalingMode="HighQuality"/>
 
     <Style TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{StaticResource ForeColor}"/>
