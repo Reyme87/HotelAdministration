@@ -22,6 +22,7 @@
     <None Remove="Resources\forwardArrow.png" />
     <None Remove="Resources\FreeRoomsIcon.png" />
     <None Remove="Resources\InfoIcon.png" />
+    <None Remove="Resources\Logo.png" />
     <None Remove="Resources\MoneyIcon.png" />
     <None Remove="Resources\OnePlace.jpg" />
     <None Remove="Resources\PriceIcon.png" />
@@ -55,6 +56,7 @@
     <Resource Include="Resources\forwardArrow.png" />
     <Resource Include="Resources\FreeRoomsIcon.png" />
     <Resource Include="Resources\InfoIcon.png" />
+    <Resource Include="Resources\Logo.png" />
     <Resource Include="Resources\MoneyIcon.png" />
     <Resource Include="Resources\OnePlace.jpg" />
     <Resource Include="Resources\PriceIcon.png" />

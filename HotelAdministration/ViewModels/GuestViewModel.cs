@@ -17,6 +17,7 @@ namespace HotelAdministration.ViewModels
 {
     internal class GuestViewModel : ViewModel
     {
+        //Создание единственного экземпляра ViewModel по принципу Singleton
         private static GuestViewModel _instance;
 
         public static GuestViewModel Instance => _instance ??= new GuestViewModel();
@@ -205,7 +206,7 @@ namespace HotelAdministration.ViewModels
         #region Команды
 
         #region SwipeRightCommand
-
+        //Команда переключения панелей с информацией вправо
         public ICommand SwipeRightCommand { get; }
 
         public void OnSwipeRightCommandExecuted(object p)
@@ -224,7 +225,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region SwipeLeftCommand
-
+        //Команда переключения панелей с информацией вправо
         public ICommand SwipeLeftCommand { get; }
 
         public void OnSwipLeftCommandExecuted(object p)
@@ -243,11 +244,12 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region WatchRoomsCommand
-
+        //Команда отображения доступных комнат по выбранному типу
         public ICommand WatchRoomsCommand { get; }
 
         public void OnWatchRoomsCommandExecuted(object p)
         {
+            //Поиск и запись в коллекцию соответствующих комнат
             SelectedRooms.Clear();
             foreach (var room in Rooms)
             {
@@ -257,6 +259,7 @@ namespace HotelAdministration.ViewModels
                 }
             }
 
+            //Проверка наличия доступных комнат для отображения/скрытия уведомления
             if (SelectedRooms.Count == 0)
             {
                 VisibilityParam = Visibility.Visible;
@@ -272,7 +275,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region PreBookRoomCommand
-
+        //Команда выбора комнаты для дальнейшего бронирования
         public ICommand PreBookRoomCommand { get; }
 
         public void OnPreBookRoomCommandExecuted(object p)
@@ -286,7 +289,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region CalculatePriceCommand
-
+        //Команда подсчёта цены за одно место в выбранной комнате
         public ICommand CalculatePriceCommand { get; }
 
         public void OnCalculatePriceCommandExecuted(object p)
@@ -299,7 +302,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region AddClientCommand
-
+        //Команда регистрации добавления клиента в список на заселение
         public ICommand AddClientCommand { get; }
 
         public void OnAddClientCommandExecuted(object p)
@@ -334,7 +337,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region RemoveClientCommand
-
+        //Команда удаления клиента из списка на заселение
         public ICommand RemoveClientCommand { get; }
 
         public void OnRemoveClientCommandExecuted(object p)
@@ -347,7 +350,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region BookRoomCommand
-
+        //Команда бронирования комнаты
         public ICommand BookRoomCommand { get; }
 
         public void OnBookRoomCommandExecuted(object p)
@@ -358,6 +361,7 @@ namespace HotelAdministration.ViewModels
                 _context.Clients.Load();
                 existingClients = _context.Clients.Local.ToList();
 
+                //Перебор клиентов для последовательного добавления в БД
                 foreach (var client in Clients)
                 {
                     using var command = _context.Database.GetDbConnection().CreateCommand();
@@ -367,6 +371,7 @@ namespace HotelAdministration.ViewModels
 
                     _context.Database.OpenConnection();
 
+                    //Проверка существования клиента с последующим изменением его статуса пребывания в комнате 
                     var price = (int)command.ExecuteScalar();
                     if (existingClients.Any(s => s.FirstName == client.FirstName && s.LastName == client.LastName && s.MiddleName == client.MiddleName))
                     {
@@ -388,6 +393,7 @@ namespace HotelAdministration.ViewModels
                     }
                 }
 
+                //Обновление данных о комнатах в БД
                 _context.Rooms
                         .Where(c => c.RoomId == SelectedRoomBooking.RoomId)
                         .ExecuteUpdate(s =>
@@ -417,6 +423,7 @@ namespace HotelAdministration.ViewModels
         public GuestViewModel()
         {
             #region Команды
+            //Регистрация команд
 
             SwipeRightCommand = new RelayCommand(OnSwipeRightCommandExecuted, CanSwipeRightCommandExecute);
 
@@ -439,6 +446,7 @@ namespace HotelAdministration.ViewModels
             _context.Rooms.Load();
             Rooms = _context.Rooms.Local.ToObservableCollection();
 
+            //Создание списка с превью комнат
             _previews = [new RoomPreview()
             {
                 PicSource = "/Resources/OnePlace.jpg",
@@ -473,6 +481,7 @@ namespace HotelAdministration.ViewModels
             _today = DateOnly.FromDateTime(_currentDateTime);
         }
 
+        //Метод подсчёта диапазона цен у комнат
         private (int min, int max) GetPrices(int capacity)
         {
             int minPrice = 1000000;

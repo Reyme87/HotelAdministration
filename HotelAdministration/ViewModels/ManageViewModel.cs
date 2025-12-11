@@ -13,6 +13,7 @@ namespace HotelAdministration.ViewModels
 {
     public class ManageViewModel : ViewModel
     {
+        //Создание единственного экземпляра ViewModel по принципу Singleton
         private static ManageViewModel _instance;
         public static ManageViewModel Instance => _instance ??= new ManageViewModel();
 
@@ -409,7 +410,7 @@ namespace HotelAdministration.ViewModels
         #region Команды
 
         #region AddFloorCommand
-
+        //Команда добавления данных об этаже
         public ICommand AddFloorCommand { get; }
 
         public void OnAddFloorCommandExecuted(object p)
@@ -420,6 +421,7 @@ namespace HotelAdministration.ViewModels
 
             try
             {
+                //Перебор этажей с последующим добавлением новых и уведомлением о существующих
                 foreach (var floorItem in Floors)
                 {
                     if (FloorNumber == floorItem.FloorNumber)
@@ -446,9 +448,9 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region RemoveFloorCommand
-
+        //Команда удаления данных об этаже
         public ICommand RemoveFloorCommand { get; }
-
+        
         public void OnRemoveFloorCommandExecuted(object p)
         {
             try
@@ -468,7 +470,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region AddRoomCommand
-
+        //Команда добавления данных о комнате
         public ICommand AddRoomCommand { get; }
 
         public void OnAddRoomCommandExecuted(object p)
@@ -515,7 +517,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region RemoveRoomCommand
-
+        //Команда удаления данных о комнате
         public ICommand RemoveRoomCommand { get; }
 
         public void OnRemoveRoomCommandExecuted(object p)
@@ -530,7 +532,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region AddEmployeeCommand
-
+        //Команда добавления данных о сотруднике
         public ICommand AddEmployeeCommand { get; }
 
         public void OnAddEmployeeCommandExecuted(object p)
@@ -576,7 +578,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region RemoveEmployeeCommand
-
+        //Команда удаления данных о сотруднике (увольнение)
         public ICommand RemoveEmployeeCommand { get; }
 
         public void OnRemoveEmployeeCommandExecuted(object p)
@@ -591,7 +593,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region GetPriceCommand
-
+        //Команда подсчёта цены за одно место в выбранной комнате
         public ICommand GetPriceCommand { get; }
 
         public void OnGetPriceCommandExecuted(object p)
@@ -604,7 +606,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region FindClientByCityCommand
-
+        //Команда поиска клиента по городу
         public ICommand FindClientByCityCommand { get; }
 
         public void OnFindClientByCityCommandExecuted(object p)
@@ -627,7 +629,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region FindClientByRoomCommand
-
+        //Команда поиска клиента по типу комнаты
         public ICommand FindClientByRoomCommand { get; }
 
         public void OnFindClientByRoomCommandExecuted(object p)
@@ -650,7 +652,7 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region FindEmployeeByDayCommand
-
+        //Команда поиска сотрудника, убиравшего этаж указанного клиента в заданный день
         public ICommand FindEmployeeByDayCommand { get; }
 
         public void OnFindEmployeeByDayCommandExecuted(object p)
@@ -676,15 +678,17 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region SetClientAsArrivedCommand
-
+        //Команда отметки клиента как прибывшего
         public ICommand SetClientAsArrivedCommand { get; }
 
         public void OnSetClientAsArrivedCommandExecuted(object p)
         {
+            //Сбор начального взноса по прибытии
             SelectedClient.HasArrived = true;
             SelectedClient.PayedAmount += SelectedClient.MoneyToPay;
             SelectedClient.MoneyToPay = 0;
 
+            //Обновление БД
             _context.Clients.Where(c => c.ClientId == SelectedClient.ClientId)
                             .ExecuteUpdate(s =>
                             s.SetProperty(c => c.HasArrived, SelectedClient.HasArrived)
@@ -697,22 +701,25 @@ namespace HotelAdministration.ViewModels
         #endregion
 
         #region SetClientAsCheckedOutCommand
-
+        //Команда отметки клиента как съехавшего
         public ICommand SetClientAsCheckedOutCommand { get; }
 
         public void OnSetClientAsCheckedOutCommandExecuted(object p)
         {
             SelectedClient.HasCheckedOut = true;
 
+            //Сравнение дат
             DateOnly checkOutDate = SelectedClient.CheckOutDate.CompareTo(_today) <= 0 ? SelectedClient.CheckOutDate : _today;
 
             TimeSpan diff = checkOutDate.ToDateTime(TimeOnly.MinValue) - SelectedClient.ArrivalDate.ToDateTime(TimeOnly.MinValue);
             int days = diff.Days;
 
+            //Вычисление конечной стоимости проживания
             int moneyToPay = days * QueryController.GetPlacePrice(SelectedClient.BookedRoom.Floor.FloorNumber, SelectedClient.BookedRoom.RoomNumber);
 
             SelectedClient.PayedAmount += moneyToPay;
 
+            //Обновление БД
             _context.Clients.Where(c => c.ClientId == SelectedClient.ClientId)
                             .ExecuteUpdate(s =>
                             s.SetProperty(c => c.HasCheckedOut, SelectedClient.HasCheckedOut)
@@ -726,6 +733,7 @@ namespace HotelAdministration.ViewModels
 
             _context.SaveChanges();
 
+            //Изменение показателей статистики в окне информации
             TotalPayedAmount = QueryController.GetTotalPayedAmount();
 
             TotalFreeRoomsAmount = QueryController.GetAvailableRoomsCount();
@@ -744,6 +752,7 @@ namespace HotelAdministration.ViewModels
         public ManageViewModel()
         {
             #region Команды
+            //Регистрация команд
 
             AddFloorCommand = new RelayCommand(OnAddFloorCommandExecuted, CanAddFloorCommandExecuted);
 
@@ -771,6 +780,7 @@ namespace HotelAdministration.ViewModels
 
             #endregion
 
+            //Загрузка данных в коллекции из БД
             _context.Floors.Load();
             Floors = _context.Floors.Local.ToObservableCollection();
 
@@ -783,6 +793,7 @@ namespace HotelAdministration.ViewModels
             _context.Clients.Load();
             Clients = _context.Clients.Local.ToObservableCollection();
 
+            //Загрузка статистики в окно информации
             TotalPayedAmount = QueryController.GetTotalPayedAmount();
 
             TotalFreeRoomsAmount = QueryController.GetAvailableRoomsCount();
@@ -797,6 +808,7 @@ namespace HotelAdministration.ViewModels
             CheckEmployeesStatuses();
         }
 
+        //Проверка наличия клиентов в списке
         private void CheckClientsEmptiness()
         {
             if (MatchingClients.Count == 0)
@@ -809,6 +821,7 @@ namespace HotelAdministration.ViewModels
             }
         }
 
+        //Метод проверки текущего статуса работника 
         private bool CheckCleaningState(ref Employee employee)
         {
             string russianCurrentDay = _culture.DateTimeFormat.GetDayName(_today.DayOfWeek);
@@ -867,11 +880,13 @@ namespace HotelAdministration.ViewModels
             return false;
         }
 
+        //Метод проверки и изменения статусов всех работников
         private void CheckEmployeesStatuses()
         {
             for (int i = 0; i < Employees.Count; i++)
             {
                 var employee = Employees[i];
+                //Проверка и обновление БД в случае изменения статуса
                 if (CheckCleaningState(ref employee))
                 {
                     Employees[i] = employee;
@@ -885,6 +900,7 @@ namespace HotelAdministration.ViewModels
             }
         }
 
+        //Метод подбора нового дня и этажа для уборки
         private (string?, int) FindNewCleaningDayAndFloor(int currentFloor)
         {
             List<string> cleaningDays = new List<string>();

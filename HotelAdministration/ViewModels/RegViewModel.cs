@@ -102,10 +102,12 @@ namespace HotelAdministration.ViewModels
 
         #region RegisterCommand
 
+        //Команда для регистрации администратора
         public ICommand RegisterCommand { get; }
 
         public async void OnRegisterCommandExecuted(object p)
         {
+            //Разделение имени из поля ввода на части
             var nameParts = Name.Trim().Split(' ');
             string lastName = nameParts[0], firstName = nameParts[1], middleName = "";
             if (nameParts.Length > 2)
@@ -113,6 +115,7 @@ namespace HotelAdministration.ViewModels
                 middleName = nameParts[2];
             }
 
+            //Заполнение свойств сущности Administrator
             Administrator admin = new Administrator();
             admin.LastName = lastName;
             admin.FirstName = firstName;
@@ -122,6 +125,7 @@ namespace HotelAdministration.ViewModels
             admin.Login = Login;
             admin.PasswordHash = Password;
 
+            //Сериализация данных в json-файл
             try
             {
                 JsonController<Administrator>.LoadInfoAsync(admin, "admin.json");
@@ -143,14 +147,17 @@ namespace HotelAdministration.ViewModels
 
         #region AuthCommand
 
+        //Команда авторизации администратора
         public ICommand AuthCommand { get; }
 
         public async void OnAuthCommandExecuted(object p)
         {
+            //Десериализация данных об администраторе из json-файла
             Administrator admin = JsonController<Administrator>.GetInfo<Administrator>("admin.json");
 
             try
             {
+                //Проверка соответствия паролей и полей ввода. Переход на главное окно администратора в случае правильности введённых данных
                 if ((Equals(AuthLogin, admin.Login) || Equals(AuthLogin, admin.Email)) && Equals(AuthPassword, admin.PasswordHash))
                 {
                     AdminWindow aw = new AdminWindow();
@@ -179,6 +186,7 @@ namespace HotelAdministration.ViewModels
         public RegViewModel() 
         {
             #region Команды
+            //Регистрация команд
 
             RegisterCommand = new RelayCommand(OnRegisterCommandExecuted, CanRegisterCommandExecute);
 
