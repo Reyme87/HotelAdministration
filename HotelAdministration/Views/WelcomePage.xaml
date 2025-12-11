@@ -35,7 +35,8 @@
         </Border>
 
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Background="{StaticResource BackColor}">
-            <Label Content="LOGO" Foreground="{StaticResource ForeColor}" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center"/>
+            <!--<Label Content="LOGO" Foreground="{StaticResource ForeColor}" HorizontalAlignment="Center" FontSize="50" VerticalAlignment="Center"/>-->
+            <Image Source="{StaticResource Logo}" Height="100" Stretch="Uniform"/>
         </Border>
 
         <Rectangle Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3" Fill="{StaticResource BackColor}" Opacity="0.6"/>

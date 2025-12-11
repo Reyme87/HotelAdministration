@@ -127,7 +127,7 @@
 
         <DockPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Visibility="{Binding VisibilityParam}">
             <Image Source="{StaticResource ErrorIcon}" Height="80" Margin="50 0 0 0" RenderOptions.BitmapScalingMode="HighQuality"/>
-            <Label Content="В данный момент нет свободных номеров этого типа" FontSize="32" Foreground="{StaticResource ForeColor}"
+            <Label Content="В данный момент нет свободных номеров этого типа" FontSize="30" Foreground="{StaticResource ForeColor}"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 30 0"/>
         </DockPanel>
         

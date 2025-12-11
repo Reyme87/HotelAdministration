@@ -57,7 +57,7 @@
         <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Visibility="{Binding VisibilityParam}" HorizontalAlignment="Center">
             <Image Source="{StaticResource SearchErrorIcon}" Height="80" RenderOptions.BitmapScalingMode="HighQuality"/>
             <Label Content="К сожалению, не удалось найти выбранных клиентов" FontSize="32" Foreground="{StaticResource ForeColor}"
-            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15"/>
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 15"/>
         </DockPanel>
 
         <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" CornerRadius="15" Background="{StaticResource BackColor}">
