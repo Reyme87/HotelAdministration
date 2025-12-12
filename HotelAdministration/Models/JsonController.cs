@@ -7,6 +7,7 @@ namespace PasswordManager.Models
 {
     internal static class JsonController<T>
     {
+        //Метод десериализации данных из json-файла
         static public ObservableCollection<T> GetInfo(string fileName)
         {
             ObservableCollection<T> collection = new ObservableCollection<T>();
@@ -28,6 +29,7 @@ namespace PasswordManager.Models
             return collection;
         }
 
+        //Метод десериализации данных из json-файла
         static public T GetInfo<T>(string fileName) where T : class
         {
             using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
@@ -49,6 +51,7 @@ namespace PasswordManager.Models
             return null;
         }
 
+        //Метод сериализации данных в json-файл
         static public async void LoadInfoAsync<T>(ObservableCollection<T> collection, string fileName)
         {
             string json = JsonConvert.SerializeObject(collection, Formatting.Indented);

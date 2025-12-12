@@ -8,6 +8,7 @@ namespace HotelAdministration.Models
     {
         private static HotelContext _context = new HotelContext();
 
+        //Метод подсчёта доступных комнат
         public static int GetAvailableRoomsCount()
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
@@ -27,6 +28,7 @@ namespace HotelAdministration.Models
             return availableRoomsCount;
         }
 
+        //Метод поиска сотрудников, убиравших номер заданного клиента в указанный день
         public static List<Employee> GetCleanerForClient(string clientLastName, string clientFirstName, string clientMiddleName, string dayOfWeek)
         {
             try
@@ -50,6 +52,7 @@ namespace HotelAdministration.Models
             }
         }
 
+        //Метод поиска клиентов, прибывших из указанного города
         public static List<Client> GetClientsByCity(string cityName)
         {
             try
@@ -72,6 +75,7 @@ namespace HotelAdministration.Models
             }
         }
 
+        //Метод поиска клиентов, проживающий в комнатах указанного типа
         public static List<Client> GetClientsInFixedplacedRooms(string roomType)
         {
             try
@@ -94,6 +98,7 @@ namespace HotelAdministration.Models
             }
         }
 
+        //Метод подсчёта свободных мест
         public static int GetFreePlacesCount()
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
@@ -113,6 +118,7 @@ namespace HotelAdministration.Models
             return freePlacesCount;
         }
 
+        //Метод подсчёта стоимости одного места в указанной комнате на заданном этаже
         public static int GetPlacePrice(int floorNumber, int roomNumber)
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
@@ -135,6 +141,7 @@ namespace HotelAdministration.Models
             return price;
         }
 
+        //Метод подсчёта общей выплаченной клиентами суммы
         public static int GetTotalPayedAmount()
         {
             using var command = _context.Database.GetDbConnection().CreateCommand();
