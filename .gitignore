@@ -374,4 +374,8 @@ FodyWeavers.xsd
 /HotelAdministration/Migrations/20251030174853_InitialCreate.cs
 /HotelAdministration/Migrations/20251030174853_InitialCreate.Designer.cs
 /HotelAdministration/Migrations/HotelContextModelSnapshot.cs
+<<<<<<< HEAD
+>>>>>>> Изменение .gitignore
+=======
+/HotelAdministration/Models/UML.cd
 >>>>>>> Изменение .gitignore
