@@ -79,15 +79,8 @@
         <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" CornerRadius="15" Background="{StaticResource BackColor}">
             <DockPanel Margin="15">
                 <TextBlock Text="Клиенты, проживающие в номере категории" Foreground="{StaticResource ForeColor}" FontSize="28" VerticalAlignment="Center" Margin="15"/>
-                <ComboBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding QueryRoomType}" Style="{StaticResource ComboBoxStyle1}" Width="120" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 10 0 10">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Label Foreground="{StaticResource BackColor}" Content="{Binding RoomType}" FontSize="20"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SingleCategory}" Style="{StaticResource ComboBoxStyle1}" Foreground="{StaticResource BackColor}" FontSize="20" Width="120" Height="40" 
+                          VerticalAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" Padding="5" Margin="10 10 0 10"/>
                 <Button Command="{Binding FindClientByRoomCommand}" Content="Поиск" VerticalAlignment="Center" HorizontalAlignment="Right" Width="120" Margin="10 15"/>
             </DockPanel>
         </Border>

@@ -2,10 +2,8 @@
 using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -311,10 +309,26 @@ namespace HotelAdministration.ViewModels
 
         private readonly List<string> _days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
         private readonly List<string> _statuses = ["Работает", "Убирает", "Отдыхает"];
+        private List<string> _categories = ["Одноместный", "Двухместный", "Трёхместный"];
+        private string _singleCategory;
 
         private static DateTime _currentDateTime;
         private static DateOnly _today;
         private static CultureInfo _culture = new CultureInfo("ru-RU");
+
+        public List<string> Categories
+        {
+            get => _categories;
+        }
+
+        public string SingleCategory
+        {
+            get => _singleCategory;
+            set
+            {
+                Set(ref _singleCategory, value);
+            }
+        }
 
         public ObservableCollection<Floor> Floors
         {
@@ -435,7 +449,6 @@ namespace HotelAdministration.ViewModels
 
                 _context.Floors.Add(floor);
                 _context.SaveChanges();
-                Floors.Add(floor);
 
                 FloorNumber = 0;
                 TotalRooms = 0;
@@ -500,6 +513,18 @@ namespace HotelAdministration.ViewModels
 
             try
             {
+                foreach (var roomItem in Rooms)
+                {
+                    if (RoomNumber == roomItem.RoomNumber)
+                    {
+                        RoomNumber = 0;
+                        Capacity = 0;
+                        Price = 0;
+                        MessageBox.Show("Комната с таким номером уже существует.");
+                        return;
+                    }
+                }
+
                 _context.Rooms.Add(room);
                 _context.SaveChanges();
 
@@ -560,7 +585,6 @@ namespace HotelAdministration.ViewModels
             {
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
-                //Employees.Add(employee);
 
                 LastName = "";
                 FirstName = "";
@@ -589,6 +613,22 @@ namespace HotelAdministration.ViewModels
         }
 
         public bool CanRemoveEmployeeCommandExecute(object p) => !Equals(SelectedEmployee, null);
+
+        #endregion
+
+        #region RemoveClientCommand
+        //Команда удаления данных о клиенте
+
+        public ICommand RemoveClientCommand { get; }
+
+        public void OnRemoveClientCommandExecuted(object p)
+        {
+            _context.Clients.Remove(SelectedClient);
+            _context.SaveChanges();
+            Clients.Remove(SelectedClient);
+        }
+
+        public bool CanRemoveClientCommandExecute(object p) => !Equals(SelectedClient, null);
 
         #endregion
 
@@ -635,7 +675,7 @@ namespace HotelAdministration.ViewModels
         public void OnFindClientByRoomCommandExecuted(object p)
         {
             MatchingClients.Clear();
-            var tempList = QueryController.GetClientsInFixedplacedRooms(QueryRoomType.RoomType);
+            var tempList = QueryController.GetClientsInFixedplacedRooms(SingleCategory);
 
             foreach (var client in tempList)
             {
@@ -647,7 +687,7 @@ namespace HotelAdministration.ViewModels
             QueryRoomType = null;
         }
 
-        public bool CanFindClientByRoomCommandExecute(object p) => !Equals(QueryRoomType, null);
+        public bool CanFindClientByRoomCommandExecute(object p) => SingleCategory != null;
 
         #endregion
 
@@ -765,6 +805,8 @@ namespace HotelAdministration.ViewModels
             RemoveRoomCommand = new RelayCommand(OnRemoveRoomCommandExecuted, CanRemoveRoomCommandExecute);
 
             RemoveEmployeeCommand = new RelayCommand(OnRemoveEmployeeCommandExecuted, CanRemoveEmployeeCommandExecute);
+
+            RemoveClientCommand = new RelayCommand(OnRemoveClientCommandExecuted, CanRemoveClientCommandExecute);
 
             GetPriceCommand = new RelayCommand(OnGetPriceCommandExecuted, CanGetPriceCommandExecute);
 

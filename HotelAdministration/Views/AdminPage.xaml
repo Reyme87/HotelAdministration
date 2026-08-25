@@ -19,58 +19,6 @@
     
     <Grid Background="{StaticResource BackColor}">
         <TabControl Background="{StaticResource ControlsColor}" TabStripPlacement="Top">
-            <!--<TabItem Header="Профиль" FontSize="20">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="Профиль администратора"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"/>
-
-                    <Label Grid.Row="1" Grid.Column="0" Content="Фамилия" FontSize="26"
-                       VerticalAlignment="Top" Margin="15 10"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="35"
-                         VerticalAlignment="Top" Margin="30 10"/>
-
-                    <Label Grid.Row="1" Grid.Column="0" Content="Имя" FontSize="26"
-                       VerticalAlignment="Center" Margin="15 10"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="35"
-                       VerticalAlignment="Center" Margin="30 10"/>
-
-                    <Label Grid.Row="1" Grid.Column="0" Content="Отчество" FontSize="26"
-                       VerticalAlignment="Bottom" Margin="15 10"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Height="35"
-                         VerticalAlignment="Bottom" Margin="30 10"/>
-
-                    <Label Grid.Row="2" Grid.Column="0" Content="e-mail" FontSize="26"
-                       VerticalAlignment="Top" Margin="15 10"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35"
-                         VerticalAlignment="Top" Margin="30 10"/>
-
-                    <Label Grid.Row="2" Grid.Column="0" Content="Телефон" FontSize="26"
-                       VerticalAlignment="Center" Margin="15 10"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35"
-                       VerticalAlignment="Center" Margin="30 10"/>
-
-                    <Label Grid.Row="2" Grid.Column="0" Content="Логин" FontSize="26"
-                       VerticalAlignment="Bottom" Margin="15 10"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35"
-                       VerticalAlignment="Bottom" Margin="30 10" IsReadOnly="True"/>
-
-                    <Button Grid.Row="3" Grid.Column="1" Content="Сохранить" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </Grid>
-            </TabItem>-->
-
             <TabItem FontSize="20">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -303,7 +251,7 @@
                     <ListBox ItemsSource="{Binding Clients}" SelectedItem="{Binding SelectedClient}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="10" Padding="0 50">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Foreground="{StaticResource ForeColor}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis" Margin="10">
+                                <TextBlock Foreground="{StaticResource ForeColor}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="28" MaxWidth="280" MinWidth="280" TextTrimming="CharacterEllipsis" Margin="15 10">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0} {1}">
                                             <Binding Path="LastName"/>
@@ -316,7 +264,7 @@
                     </ListBox>
 
                     <DockPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Top">
-                        <Button Content="{StaticResource DeleteIcon}" Height="40" Width="80" HorizontalAlignment="Right" Margin="10 20 20 10"/>
+                        <Button Command="{Binding RemoveClientCommand}" Content="{StaticResource DeleteIcon}" Height="40" Width="80" HorizontalAlignment="Right" Margin="10 20 20 10"/>
                     </DockPanel>
 
                     <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4">

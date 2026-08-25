@@ -3,13 +3,7 @@ using HotelAdministration.Models;
 using HotelAdministration.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -319,6 +313,11 @@ namespace HotelAdministration.ViewModels
 
             try
             {
+                if (CheckInDate > CheckOutDate || CheckInDate < _today)
+                {
+                    MessageBox.Show("Выберите корректную дату.");
+                }
+
                 Clients.Add(client);
 
                 LastName = "";
@@ -331,8 +330,8 @@ namespace HotelAdministration.ViewModels
             catch { }
         }
 
-        public bool CanAddClientCommandExecute(object p) => !Equals(LastName, null) && !Equals(FirstName, null) && !Equals(PhoneNumber, null) && !Equals(Email, null) &&
-                                                            !Equals(City, null) && !Equals(CheckInDate, null) && !Equals(CheckOutDate, null) && CheckInDate <= CheckOutDate && CheckInDate >= _today && Clients.Count < SelectedRoomBooking.Capacity;
+        public bool CanAddClientCommandExecute(object p) => !Equals(LastName, null) && !Equals(FirstName, null) && !Equals(PhoneNumber, null) && !Equals(Email, null) && (Clients.Count + 1) <= SelectedRoomBooking.Capacity &&
+                                                            !Equals(City, null) && !Equals(CheckInDate, null) && !Equals(CheckOutDate, null) && Clients.Count < SelectedRoomBooking.Capacity;
 
         #endregion
 
